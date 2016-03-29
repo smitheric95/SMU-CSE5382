@@ -10,7 +10,9 @@
 #define MATRIX_H
 
 #include "Vectors.h"
+#include <iostream>
 
+using namespace std;
 class Matrix
 {
 public:
@@ -72,6 +74,8 @@ public:
     {
         return Multiply(*this, right);
     }
+    
+    friend ostream& operator<<(ostream& out, const Matrix& m);
     
     
 private:

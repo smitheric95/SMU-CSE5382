@@ -32,6 +32,7 @@ bool Ship::OnInitialize()
         -1/3.f, -0.5f, 0
     };
     
+    
     vector<GLushort> indices = {0,1,2};
     
     mesh.Initialize(vertices, indices);
@@ -39,7 +40,7 @@ bool Ship::OnInitialize()
     m_mesh = &mesh;
     
     
-
+    
     auto& material = Create<class Material>("ship-material");
     m_material = &material;
     
@@ -52,6 +53,74 @@ bool Ship::OnInitialize()
 
 void Ship::OnUpdate(const GameTime& time)
 {
+    Game curGame = Game::Instance();
+    GLFWwindow* window = curGame.Window();
+    
+    Vector3 currentTranslation = Transform.Translation;
+    
+  
+    
+    auto& cam = Game::Camera;
+    Matrix camMatrix = cam.Transform.GetMatrix();
+    
+    
+    
+    Matrix aspectRatio = cam.GetProjectionMatrix();
+    std::cout << aspectRatio;
+    
+    float halfWidth = camMatrix.m32 / aspectRatio.m00;
+    float halfHeight = camMatrix.m32 / aspectRatio.m11;
+    
+    
+    //distance from origin to boundries
+    
+    
+    std::cout << "-------" << std::endl;
+    std::cout << "X: " << Transform.Translation.X << std::endl;
+    std::cout << "halfWidth: " << halfWidth << std::endl;
+    
+    this->curX = Transform.Translation.X;
+    this->curY = Transform.Translation.Y;
+    this->curZ = Transform.Translation.Z;
+    
+    //see notes on desktop how to get proper matrix for coordinates of ship
+    //search for window height width opengl
+    
+    //calculate dt
+    float timeScale = time.ElapsedSeconds() / getPreviousFrameTime();
+    if( time.ElapsedSeconds() / getPreviousFrameTime() > 0 )
+        setPreviousFrameTime( time.ElapsedSeconds() );
+    
+    //find velocity
+    float velX = (this->curX - this->prevX) * timeScale;
+    float velY = (this->curY - this->prevY) * timeScale;
+    float velZ = (this->curZ - this->prevZ) * timeScale;
+    
+    //prev = cur at beginning of each frame
+    this->prevX = this->curX;
+    this->prevY = this->curY;
+    this->prevZ = this->curZ;
+    
+    Transform.Translation.X += velX;
+    Transform.Translation.Y += velY;
+    Transform.Translation.Z += velZ;
+    
+    if(glfwGetKey(window,GLFW_KEY_UP) == GLFW_PRESS){
+        auto newPos = Transform.GetMatrix();
+        
+        Transform.Translation.X += 0.005 * newPos.m10;
+        Transform.Translation.Y += 0.005 * newPos.m11;
+        Transform.Translation.Z += 0.005 * newPos.m12;
+    }
+    
+    
+    if(glfwGetKey(window,GLFW_KEY_RIGHT) == GLFW_PRESS){
+        Transform.Rotation.Z += 0.1;
+    }
+    
+    if(glfwGetKey(window,GLFW_KEY_LEFT) == GLFW_PRESS){
+        Transform.Rotation.Z -= 0.1;
+    }
     
 }
 
@@ -61,10 +130,16 @@ void Ship::OnRender(const GameTime& time)
     auto& cam = Game::Camera;
     
     m_material->Bind();
-
+    
     m_material->SetUniform("World", Transform.GetMatrix());
     m_material->SetUniform("View",cam.GetViewMatrix());
     m_material->SetUniform("Projection",cam.GetProjectionMatrix());
 }
 
+float Ship::getPreviousFrameTime(){
+    return previousFrameTime;
+}
+void Ship::setPreviousFrameTime(float previousFrameTime){
+    this->previousFrameTime = previousFrameTime;
+}
 

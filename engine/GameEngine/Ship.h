@@ -26,6 +26,11 @@ public:
     
     void OnUpdate(const GameTime& time) override;
     void OnRender(const GameTime& time) override;
+    
+    float curX, curY, curZ, prevX, prevY, prevZ;
+    float previousFrameTime = 0.001f;
+    float getPreviousFrameTime();
+    void setPreviousFrameTime( float previousFrameTime );
 private:
     Mesh* m_mesh;
     Material* m_material;
