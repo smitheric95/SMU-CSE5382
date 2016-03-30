@@ -30,7 +30,7 @@ public:
     Vector3 currentTranslation, previousTranslation;
     
     bool hasSwitchedX = false;
-    int hasSwitchedY = 0;
+    bool hasSwitchedY = false;
     
     float previousFrameTime = 0.001f;
     float getPreviousFrameTime();

@@ -74,6 +74,7 @@ void Ship::OnUpdate(const GameTime& time)
             previousTranslation.X -= 2*(abs(currentTranslation.X) - abs(previousTranslation.X));
         else if( previousTranslation.X > 0 )
             previousTranslation.X += 2*(abs(currentTranslation.X) - abs(previousTranslation.X));
+        
         previousTranslation.X *= -1;
         currentTranslation.X *= -1;
         hasSwitchedX = true;
@@ -82,9 +83,22 @@ void Ship::OnUpdate(const GameTime& time)
         hasSwitchedX = false;
     }
     
-    if( currentTranslation.Y < (-1*halfHeight) || currentTranslation.Y > halfHeight ){
+    if( (currentTranslation.Y < (-1*halfHeight) || currentTranslation.Y > halfHeight) && !hasSwitchedY ){
+        
+        if( previousTranslation.Y < 0 )
+            previousTranslation.Y -= 2*(abs(currentTranslation.Y) - abs(previousTranslation.Y));
+        else if( previousTranslation.Y > 0 )
+            previousTranslation.Y += 2*(abs(currentTranslation.Y) - abs(previousTranslation.Y));
+        
+        previousTranslation.Y *= -1;
         currentTranslation.Y *= -1;
+        hasSwitchedY = true;
     }
+    else if(currentTranslation.Y > (-1*halfHeight) && currentTranslation.Y < (halfHeight)){
+        hasSwitchedY = false;
+    }
+    
+   
     
     //calculate dt
     float timeScale = time.ElapsedSeconds() / getPreviousFrameTime();
