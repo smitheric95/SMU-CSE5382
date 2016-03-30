@@ -56,35 +56,35 @@ void Ship::OnUpdate(const GameTime& time)
     Game curGame = Game::Instance();
     GLFWwindow* window = curGame.Window();
     
-    Vector3 currentTranslation = Transform.Translation;
-    
-  
+    currentTranslation = Transform.Translation;
     
     auto& cam = Game::Camera;
     Matrix camMatrix = cam.Transform.GetMatrix();
-    
-    
-    
     Matrix aspectRatio = cam.GetProjectionMatrix();
-    std::cout << aspectRatio;
     
+    //calculate width and height of
     float halfWidth = camMatrix.m32 / aspectRatio.m00;
     float halfHeight = camMatrix.m32 / aspectRatio.m11;
+
+    currentTranslation = Transform.Translation;
     
+    if( (currentTranslation.X < (-1*halfWidth) || currentTranslation.X > halfWidth) && !hasSwitchedX ){
+        
+        if( previousTranslation.X < 0 )
+            previousTranslation.X -= 2*(abs(currentTranslation.X) - abs(previousTranslation.X));
+        else if( previousTranslation.X > 0 )
+            previousTranslation.X += 2*(abs(currentTranslation.X) - abs(previousTranslation.X));
+        previousTranslation.X *= -1;
+        currentTranslation.X *= -1;
+        hasSwitchedX = true;
+    }
+    else if(currentTranslation.X > (-1*halfWidth) && currentTranslation.X < (halfWidth)){
+        hasSwitchedX = false;
+    }
     
-    //distance from origin to boundries
-    
-    
-    std::cout << "-------" << std::endl;
-    std::cout << "X: " << Transform.Translation.X << std::endl;
-    std::cout << "halfWidth: " << halfWidth << std::endl;
-    
-    this->curX = Transform.Translation.X;
-    this->curY = Transform.Translation.Y;
-    this->curZ = Transform.Translation.Z;
-    
-    //see notes on desktop how to get proper matrix for coordinates of ship
-    //search for window height width opengl
+    if( currentTranslation.Y < (-1*halfHeight) || currentTranslation.Y > halfHeight ){
+        currentTranslation.Y *= -1;
+    }
     
     //calculate dt
     float timeScale = time.ElapsedSeconds() / getPreviousFrameTime();
@@ -92,18 +92,15 @@ void Ship::OnUpdate(const GameTime& time)
         setPreviousFrameTime( time.ElapsedSeconds() );
     
     //find velocity
-    float velX = (this->curX - this->prevX) * timeScale;
-    float velY = (this->curY - this->prevY) * timeScale;
-    float velZ = (this->curZ - this->prevZ) * timeScale;
+    Vector3 velocity = (currentTranslation - previousTranslation) * timeScale;
+    
     
     //prev = cur at beginning of each frame
-    this->prevX = this->curX;
-    this->prevY = this->curY;
-    this->prevZ = this->curZ;
+    previousTranslation = currentTranslation;
     
-    Transform.Translation.X += velX;
-    Transform.Translation.Y += velY;
-    Transform.Translation.Z += velZ;
+    Transform.Translation = currentTranslation;
+    
+    Transform.Translation += velocity;
     
     if(glfwGetKey(window,GLFW_KEY_UP) == GLFW_PRESS){
         auto newPos = Transform.GetMatrix();
@@ -112,7 +109,6 @@ void Ship::OnUpdate(const GameTime& time)
         Transform.Translation.Y += 0.005 * newPos.m11;
         Transform.Translation.Z += 0.005 * newPos.m12;
     }
-    
     
     if(glfwGetKey(window,GLFW_KEY_RIGHT) == GLFW_PRESS){
         Transform.Rotation.Z += 0.1;

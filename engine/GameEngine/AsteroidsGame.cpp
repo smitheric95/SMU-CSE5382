@@ -25,7 +25,7 @@ bool AsteroidsGame::OnCreateScene()
     
     auto& cam = Game::Camera;
     
-    cam.Transform.Translation.Z = 10;
+    cam.Transform.Translation.Z = 18;
 
     return true;
     

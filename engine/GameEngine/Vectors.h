@@ -87,6 +87,26 @@ struct Vector3 : public Vector2
     }
     
     
+    /*
+     * operators + and -
+     * source: http://leetnightshade.com/c-vector3-class
+     */
+
+    template<typename T>
+    inline Vector3 operator+(const T& rval)
+    {
+        return Vector3(X + rval.X, Y + rval.Y, Z + rval.Z);
+        
+    }
+    
+    template<typename T>
+    inline Vector3 operator-(const T& rval)
+    {
+        return Vector3(X - rval.X, Y - rval.Y, Z - rval.Z);
+        
+    }
+    
+    
     
 };
 

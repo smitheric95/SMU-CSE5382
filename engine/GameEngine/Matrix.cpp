@@ -202,20 +202,6 @@ Matrix Matrix::CreatePerspective(float fov, float aspect, float zNear, float zFa
     return m;
 }
 
-ostream& operator<<(ostream& out, const Matrix& m){
-    out << "Matrix: " << endl;
-    out << "X: " << m.m00 << ", " << m.m01 << ", " << m.m02 << ", " << m.m03 << endl;
-    out << "Y: " << m.m10 << ", " << m.m11 << ", " << m.m12 << ", " << m.m13 << endl;
-    out << "Z: " << m.m20 << ", " << m.m21 << ", " << m.m22 << ", " << m.m23 << endl;
-    out << "W: " << m.m30 << ", " << m.m31 << ", " << m.m32 << ", " << m.m33 << endl;
-    
-    return out;
-}
-
-
-
-
-
 
 
 
