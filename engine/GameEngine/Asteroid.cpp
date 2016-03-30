@@ -57,6 +57,7 @@ bool Asteroid::OnInitialize()
     
     mesh.Material = &material;
     material.FillType = PolygonMode::Line;
+    mesh.Type = BeginMode::Lines;
     
     
     return material.Build("Shaders/primitive");
@@ -135,13 +136,7 @@ void Asteroid::OnUpdate(const GameTime& time)
         Transform.Translation.Z += 0.005 * newPos.m12;
     }
     
-    if(glfwGetKey(window,GLFW_KEY_RIGHT) == GLFW_PRESS){
-        Transform.Rotation.Z += 0.1;
-    }
-    
-    if(glfwGetKey(window,GLFW_KEY_LEFT) == GLFW_PRESS){
-        Transform.Rotation.Z -= 0.1;
-    }
+  
     
 }
 
