@@ -23,6 +23,11 @@ bool AsteroidsGame::OnCreateScene()
 {
     CreateShip();
     
+    for(int i=0;i<20;i++){
+        CreateAsteroid();
+        
+    }
+    
     auto& cam = Game::Camera;
     
     cam.Transform.Translation.Z = 18;
@@ -38,5 +43,13 @@ Ship& AsteroidsGame::CreateShip()
     return ship;
 }
 
+Asteroid& AsteroidsGame::CreateAsteroid()
+{
+    auto& asteroid = Create<Asteroid>("asteroid");
+    
+    //asteroid.Transform.Translation = Vector3(rand()%3, rand()%3, rand()%3);
+    
+    return asteroid;
+}
 
 

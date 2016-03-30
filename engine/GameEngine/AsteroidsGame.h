@@ -27,7 +27,7 @@ public:
 	std::string ShaderFolder;
     
     Ship& CreateShip();
-
+    Asteroid& CreateAsteroid();
     
 private:
     
