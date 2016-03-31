@@ -128,15 +128,13 @@ void Asteroid::OnUpdate(const GameTime& time)
     
     Transform.Translation += velocity;
     
-    if(glfwGetKey(window,GLFW_KEY_UP) == GLFW_PRESS){
-        auto newPos = Transform.GetMatrix();
+    if( !hasBeenPushed ){
+        Transform.Translation.X += 0.005 * (rand() % 2);
+        Transform.Translation.Y += 0.005 * (rand() % 2);
+        Transform.Translation.Z += 0.005 * (rand() % 2);
         
-        Transform.Translation.X += 0.005 * newPos.m10;
-        Transform.Translation.Y += 0.005 * newPos.m11;
-        Transform.Translation.Z += 0.005 * newPos.m12;
+        hasBeenPushed = true;
     }
-    
-  
     
 }
 
