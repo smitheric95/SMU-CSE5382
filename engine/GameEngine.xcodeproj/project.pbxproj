@@ -41,6 +41,7 @@
 		98F03C331C5FCC77008EEF9B /* glError.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98F03C311C5FCC77008EEF9B /* glError.cpp */; };
 		98F03C361C5FDD5D008EEF9B /* Files.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98F03C341C5FDD5D008EEF9B /* Files.cpp */; };
 		98F4ADB21C60087700D98467 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98F4ADB01C60087700D98467 /* Mesh.cpp */; };
+		A36FAE8C1CB2F98600AB4FC0 /* PerlinNoise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A36FAE8A1CB2F98600AB4FC0 /* PerlinNoise.cpp */; };
 		A374A7191CAC5FDA00C12C02 /* GeometryProvider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A374A7171CAC5FDA00C12C02 /* GeometryProvider.cpp */; };
 		A6BE86631C6B96F900B62F67 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98F03C211C5FA3A2008EEF9B /* Game.cpp */; };
 		A6BE86651C6B96F900B62F67 /* glError.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98F03C311C5FCC77008EEF9B /* glError.cpp */; };
@@ -158,6 +159,8 @@
 		98F03C411C5FDEBB008EEF9B /* Enums.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Enums.h; sourceTree = "<group>"; };
 		98F4ADB01C60087700D98467 /* Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mesh.cpp; sourceTree = "<group>"; };
 		98F4ADB11C60087700D98467 /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
+		A36FAE8A1CB2F98600AB4FC0 /* PerlinNoise.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PerlinNoise.cpp; sourceTree = "<group>"; };
+		A36FAE8B1CB2F98600AB4FC0 /* PerlinNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerlinNoise.h; sourceTree = "<group>"; };
 		A374A7171CAC5FDA00C12C02 /* GeometryProvider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GeometryProvider.cpp; sourceTree = "<group>"; };
 		A374A7181CAC5FDA00C12C02 /* GeometryProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeometryProvider.h; sourceTree = "<group>"; };
 		A6BE867B1C6B96F900B62F67 /* GameEngine10_11 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GameEngine10_11; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -296,6 +299,8 @@
 		98F4ADAF1C60084E00D98467 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				A36FAE8A1CB2F98600AB4FC0 /* PerlinNoise.cpp */,
+				A36FAE8B1CB2F98600AB4FC0 /* PerlinNoise.h */,
 				A374A7171CAC5FDA00C12C02 /* GeometryProvider.cpp */,
 				A374A7181CAC5FDA00C12C02 /* GeometryProvider.h */,
 				980D9BD91C7E23A400C30167 /* Asteroid.cpp */,
@@ -433,6 +438,7 @@
 				9831A2F21C56A221005F2989 /* stb_image_write.c in Sources */,
 				98D48EEA1C624E0F00C3A36B /* Resource.cpp in Sources */,
 				980D9BE51C7E23A400C30167 /* AsteroidsGame.cpp in Sources */,
+				A36FAE8C1CB2F98600AB4FC0 /* PerlinNoise.cpp in Sources */,
 				980D9BE91C7E23A400C30167 /* Transform.cpp in Sources */,
 				9831A2F01C56A221005F2989 /* SOIL2.c in Sources */,
 				98F03C2C1C5FCBB4008EEF9B /* GameTime.cpp in Sources */,
