@@ -129,9 +129,8 @@ void Asteroid::OnUpdate(const GameTime& time)
     Transform.Translation += velocity;
     
     if( !hasBeenPushed ){
-        Transform.Translation.X += 0.005 * (rand() % 2);
-        Transform.Translation.Y += 0.005 * (rand() % 2);
-        Transform.Translation.Z += 0.005 * (rand() % 2);
+        Transform.Translation.X += 0.0005 * (rand() % 3 + (-1));
+        Transform.Translation.Y += 0.0005 * (rand() % 3 + (-1));
         
         hasBeenPushed = true;
     }

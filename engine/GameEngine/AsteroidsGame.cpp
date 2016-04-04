@@ -48,9 +48,9 @@ Asteroid& AsteroidsGame::CreateAsteroid()
     auto& asteroid = Create<Asteroid>("asteroid");
     
 
-    asteroid.Transform.Translation = Vector3(rand() % 20 + (-10), rand() % 20 + (-10), 0);
+    asteroid.Transform.Translation = Vector3(rand()%20 + (-10), rand()%20 + (-10), 0);
     
-    int scale = rand() % 5;
+    int scale = rand() % 2 + 1;
     asteroid.Transform.Scale = Vector3(scale, scale, scale);
     
     return asteroid;

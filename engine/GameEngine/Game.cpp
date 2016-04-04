@@ -165,6 +165,9 @@ void Game::GetFramebufferSize(int* width, int* height)
 }
 
 
+void Game::OnUpdate(){
+    
+}
 
 
 

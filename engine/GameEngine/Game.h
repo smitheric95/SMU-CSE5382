@@ -38,7 +38,9 @@ public:
     static Game& Instance() { return *m_instance; }
     
     GLFWwindow* Window() const { return m_window; }
-
+    
+    void OnUpdate();
+    
 private:
     GLFWwindow* m_window;
     static Game* m_instance;
