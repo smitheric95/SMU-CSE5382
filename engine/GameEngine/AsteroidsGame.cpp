@@ -56,4 +56,7 @@ Asteroid& AsteroidsGame::CreateAsteroid()
     return asteroid;
 }
 
+void AsteroidsGame::OnUpdate(const GameTime & time){
+    
+}
 

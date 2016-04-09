@@ -28,6 +28,7 @@ public:
     
     Ship& CreateShip();
     Asteroid& CreateAsteroid();
+    void OnUpdate(const GameTime & time) override;
     
 private:
     

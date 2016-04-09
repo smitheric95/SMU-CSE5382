@@ -39,7 +39,7 @@ public:
     
     GLFWwindow* Window() const { return m_window; }
     
-    void OnUpdate();
+    
     
 private:
     GLFWwindow* m_window;
