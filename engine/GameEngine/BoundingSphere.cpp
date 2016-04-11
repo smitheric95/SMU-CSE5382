@@ -8,6 +8,10 @@
 
 #include "BoundingSphere.h"
 #include <limits>
+BoundingSphere::BoundingSphere(){
+    this->boundCenter = Vector3(0,0,0);
+    this->boundRadius = 0.0;
+}
 
 BoundingSphere::BoundingSphere(Vector3 center, float radius){
     std::cout << "in boundingsphere " << std::endl;
@@ -28,17 +32,17 @@ BoundingSphere::BoundingSphere(std::vector<Vector3> vertices){
     for(int i=0;i<vertices.size();i++){
         if( vertices[i].X > maxX )
             maxX = vertices[i].X;
-        else if( vertices[i].X < minX)
+        else if( vertices[i].X < minX )
             minX = vertices[i].X;
         
         if( vertices[i].Y > maxY )
             maxY = vertices[i].Y;
-        else if( vertices[i].Y < minY)
+        else if( vertices[i].Y < minY )
             minY = vertices[i].Y;
         
         if( vertices[i].Z > maxZ )
             maxZ = vertices[i].Z;
-        else if( vertices[i].Z < minZ)
+        else if( vertices[i].Z < minZ )
             minZ = vertices[i].Z;
     }
     

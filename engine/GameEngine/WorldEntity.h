@@ -11,11 +11,13 @@
 
 #include "GameObject.h"
 #include "Transform.h"
+#include "BoundingSphere.h"
 
 class WorldEntity : public GameObject
 {
 public:
     Transform Transform;
+    BoundingSphere Bounds;
     
 };
 

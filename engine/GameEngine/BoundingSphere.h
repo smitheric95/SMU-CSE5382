@@ -11,15 +11,12 @@
 
 #include "Common.h"
 #include "Mesh.h"
-#include "Game.h"
-#include "Camera.h"
-
 #include <vector>
 #include <cmath>
 
 #include <stdio.h>
 
-class BoundingSphere : public WorldEntity{
+class BoundingSphere{
 public:
     Vector3 boundCenter;
     float boundRadius;
