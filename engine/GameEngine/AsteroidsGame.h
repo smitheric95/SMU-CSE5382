@@ -12,6 +12,7 @@
 #include "Game.h"
 #include "Ship.h"
 #include "Asteroid.h"
+#include "Missile.h"
 
 class AsteroidsGame : public Game
 {
@@ -28,6 +29,9 @@ public:
     
     Ship& CreateShip();
     Asteroid& CreateAsteroid();
+    Missile& CreateMissile();
+    vector<Missile> allMissiles;
+    
     void OnUpdate(const GameTime & time) override;
     
 private:

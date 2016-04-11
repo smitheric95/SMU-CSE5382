@@ -1,13 +1,14 @@
 //
-//  Ship.cpp
+//  Missile.cpp
 //  GameEngine
 //
-//  Created by David Lively on 2/22/16.
+//  Created by David Lively on 4/11/16.
 //  Copyright © 2016 David Lively. All rights reserved.
 //
 
+#include "Missile.h"
+
 #include "Common.h"
-#include "Ship.h"
 #include "Mesh.h"
 #include "Game.h"
 #include "Camera.h"
@@ -17,9 +18,10 @@
 
 using namespace std;
 
-bool Ship::OnInitialize()
+bool Missile::OnInitialize()
 {
-    auto& mesh = Create<Mesh>("ship-mesh");
+    //call parent mesh thing
+    auto& mesh = Create<Mesh>("missile-mesh");
     
     
     /// narrow triangle pointed along the positive Y axis
@@ -27,9 +29,9 @@ bool Ship::OnInitialize()
     {
         0,0.5f, 0
         ,
-        1/3.f, -0.5f, 0
+        0, -0.5f, 0
         ,
-        -1/3.f, -0.5f, 0
+        0, -0.5f, 0
     };
     
     
@@ -38,20 +40,20 @@ bool Ship::OnInitialize()
     mesh.Initialize(vertices, indices);
     
     m_mesh = &mesh;
-    
-    
+
     
     auto& material = Create<class Material>("ship-material");
     m_material = &material;
     
     mesh.Material = &material;
     material.FillType = PolygonMode::Line;
+    mesh.Type = BeginMode::Lines;
     
     
     return material.Build("Shaders/primitive");
 }
 
-void Ship::OnUpdate(const GameTime& time)
+void Missile::OnUpdate(const GameTime& time)
 {
     Game curGame = Game::Instance();
     GLFWwindow* window = curGame.Window();
@@ -65,7 +67,7 @@ void Ship::OnUpdate(const GameTime& time)
     //calculate width and height of
     float halfWidth = camMatrix.m32 / aspectRatio.m00;
     float halfHeight = camMatrix.m32 / aspectRatio.m11;
-
+    
     currentTranslation = Transform.Translation;
     
     if( (currentTranslation.X < (-1*halfWidth) || currentTranslation.X > halfWidth) && !hasSwitchedX ){
@@ -98,7 +100,7 @@ void Ship::OnUpdate(const GameTime& time)
         hasSwitchedY = false;
     }
     
-   
+    
     
     //calculate dt
     float timeScale = time.ElapsedSeconds() / getPreviousFrameTime();
@@ -115,7 +117,7 @@ void Ship::OnUpdate(const GameTime& time)
     Transform.Translation = currentTranslation;
     
     Transform.Translation += velocity;
-    /*
+    
     if(glfwGetKey(window,GLFW_KEY_UP) == GLFW_PRESS){
         auto newPos = Transform.GetMatrix();
         
@@ -123,7 +125,7 @@ void Ship::OnUpdate(const GameTime& time)
         Transform.Translation.Y += 0.005 * newPos.m11;
         Transform.Translation.Z += 0.005 * newPos.m12;
     }
-    */
+    
     if(glfwGetKey(window,GLFW_KEY_RIGHT) == GLFW_PRESS){
         Transform.Rotation.Z += 0.1;
     }
@@ -132,10 +134,18 @@ void Ship::OnUpdate(const GameTime& time)
         Transform.Rotation.Z -= 0.1;
     }
     
+    if(glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_PRESS){
+        auto newPos = Transform.GetMatrix();
+        
+        Transform.Translation.X += 0.005 * newPos.m10;
+        Transform.Translation.Y += 0.005 * newPos.m11;
+        Transform.Translation.Z += 0.005 * newPos.m12;
+    }
+    
 }
 
 
-void Ship::OnRender(const GameTime& time)
+void Missile::OnRender(const GameTime& time)
 {
     auto& cam = Game::Camera;
     
@@ -146,10 +156,10 @@ void Ship::OnRender(const GameTime& time)
     m_material->SetUniform("Projection",cam.GetProjectionMatrix());
 }
 
-float Ship::getPreviousFrameTime(){
+float Missile::getPreviousFrameTime(){
     return previousFrameTime;
 }
-void Ship::setPreviousFrameTime(float previousFrameTime){
+void Missile::setPreviousFrameTime(float previousFrameTime){
     this->previousFrameTime = previousFrameTime;
 }
 

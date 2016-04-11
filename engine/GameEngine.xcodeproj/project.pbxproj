@@ -43,6 +43,7 @@
 		98F4ADB21C60087700D98467 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98F4ADB01C60087700D98467 /* Mesh.cpp */; };
 		A36FAE8C1CB2F98600AB4FC0 /* PerlinNoise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A36FAE8A1CB2F98600AB4FC0 /* PerlinNoise.cpp */; };
 		A374A7191CAC5FDA00C12C02 /* GeometryProvider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A374A7171CAC5FDA00C12C02 /* GeometryProvider.cpp */; };
+		A377075F1CBC35F900BED01D /* Missile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A377075E1CBC35F900BED01D /* Missile.cpp */; };
 		A3CB1CFB1CB5A02900330C89 /* BoundingSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3CB1CF91CB5A02900330C89 /* BoundingSphere.cpp */; };
 		A6BE86631C6B96F900B62F67 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98F03C211C5FA3A2008EEF9B /* Game.cpp */; };
 		A6BE86651C6B96F900B62F67 /* glError.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98F03C311C5FCC77008EEF9B /* glError.cpp */; };
@@ -164,6 +165,8 @@
 		A36FAE8B1CB2F98600AB4FC0 /* PerlinNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerlinNoise.h; sourceTree = "<group>"; };
 		A374A7171CAC5FDA00C12C02 /* GeometryProvider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GeometryProvider.cpp; sourceTree = "<group>"; };
 		A374A7181CAC5FDA00C12C02 /* GeometryProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeometryProvider.h; sourceTree = "<group>"; };
+		A377075E1CBC35F900BED01D /* Missile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Missile.cpp; sourceTree = "<group>"; };
+		A37707601CBC365B00BED01D /* Missile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Missile.h; sourceTree = "<group>"; };
 		A3CB1CF91CB5A02900330C89 /* BoundingSphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BoundingSphere.cpp; sourceTree = "<group>"; };
 		A3CB1CFC1CB5A7CC00330C89 /* BoundingSphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoundingSphere.h; sourceTree = "<group>"; };
 		A6BE867B1C6B96F900B62F67 /* GameEngine10_11 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GameEngine10_11; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -302,6 +305,8 @@
 		98F4ADAF1C60084E00D98467 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				A37707601CBC365B00BED01D /* Missile.h */,
+				A377075E1CBC35F900BED01D /* Missile.cpp */,
 				A36FAE8A1CB2F98600AB4FC0 /* PerlinNoise.cpp */,
 				A36FAE8B1CB2F98600AB4FC0 /* PerlinNoise.h */,
 				A3CB1CFC1CB5A7CC00330C89 /* BoundingSphere.h */,
@@ -444,6 +449,7 @@
 				98D48EEA1C624E0F00C3A36B /* Resource.cpp in Sources */,
 				980D9BE51C7E23A400C30167 /* AsteroidsGame.cpp in Sources */,
 				A3CB1CFB1CB5A02900330C89 /* BoundingSphere.cpp in Sources */,
+				A377075F1CBC35F900BED01D /* Missile.cpp in Sources */,
 				A36FAE8C1CB2F98600AB4FC0 /* PerlinNoise.cpp in Sources */,
 				980D9BE91C7E23A400C30167 /* Transform.cpp in Sources */,
 				9831A2F01C56A221005F2989 /* SOIL2.c in Sources */,

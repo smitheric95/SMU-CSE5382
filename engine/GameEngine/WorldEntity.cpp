@@ -7,3 +7,11 @@
 //
 
 #include "WorldEntity.h"
+
+bool WorldEntity::OnInitialize(){
+    //auto& mesh = Create<Mesh>("-mesh");
+    
+    //what vertices do I pass?
+    //Bounds = BoundingSphere();
+    return true;
+}

@@ -20,10 +20,11 @@ using namespace std;
 
 bool Asteroid::OnInitialize()
 {
+    //call parent mesh thing
     auto& mesh = Create<Mesh>("ship-mesh");
     
     
-    /// narrow triangle pointed along the positive Y axis
+
     vector<Vector3> vertices;
     vector<GLushort> indices;
     

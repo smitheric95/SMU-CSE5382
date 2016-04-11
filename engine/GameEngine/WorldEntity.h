@@ -19,6 +19,7 @@ public:
     Transform Transform;
     BoundingSphere Bounds;
     
+    bool OnInitialize() override;
 };
 
 
