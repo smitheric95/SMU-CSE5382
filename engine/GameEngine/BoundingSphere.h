@@ -27,6 +27,7 @@ public:
     Vector3 matrix;
     BoundingSphere();
     BoundingSphere(Vector3 center, float radius);
+    BoundingSphere(std::vector<Vector3> vertices);
 };
 
 #endif /* BoundingSphere_h */

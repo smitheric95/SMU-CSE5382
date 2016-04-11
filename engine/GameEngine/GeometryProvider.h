@@ -32,7 +32,6 @@ public:
         b = (i+1) % vertices.size();
      */
     
-
 };
 
 #endif
