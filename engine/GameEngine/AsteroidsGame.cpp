@@ -86,8 +86,9 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
             if( !allMissiles[i]->isActive ){
                 curMissile = allMissiles[i];
                 curMissile->Transform.Translation = curShip->Transform.Translation;
-                
-                std::cout << "allMissiles[i]: " << allMissiles[i]->name << std::endl;
+                curMissile->Transform.Rotation = curShip->Transform.Rotation;
+                curMissile->hasBeenShot = false;
+                curMissile->backToShip = false;
                 break;
             }
         }
@@ -95,7 +96,11 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
         //set the missile to active
         if( curMissile != nullptr ){
             std::cout << "----FIRE-----" << std::endl;
-            std::cout << curMissile->name << std::endl;
+            std::cout << "name: " << curMissile->name << std::endl;
+            std::cout << "isActive: " << curMissile->isActive << std::endl;
+            std::cout << "hasBeenShot: " << curMissile->hasBeenShot << std::endl;
+            std::cout << "Ship X: " << curShip->Transform.Translation.X << std::endl;
+            std::cout << "X: " << curMissile->Transform.Translation.X << std::endl;
             std::cout << "---------" << std::endl;
             
             curMissile->isActive = true;

@@ -41,6 +41,7 @@ public:
     bool isActive;
     bool hasBeenShot;
     bool spacePressed;
+    bool backToShip;
     
 private:
     Mesh* m_mesh;

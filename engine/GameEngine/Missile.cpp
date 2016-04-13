@@ -52,6 +52,7 @@ bool Missile::OnInitialize()
     isActive = false;
     hasBeenShot = false;
     spacePressed = false;
+    backToShip = true;
         
     return material.Build("Shaders/primitive");
 }
@@ -123,11 +124,14 @@ void Missile::OnUpdate(const GameTime& time)
     
     
     //prev = cur at beginning of each frame
+    
     previousTranslation = currentTranslation;
     
     Transform.Translation = currentTranslation;
-    
-    Transform.Translation += velocity;
+    if( backToShip ){
+        
+        Transform.Translation += velocity;
+    }
     
     if(!hasBeenShot && glfwGetKey(window,GLFW_KEY_UP) == GLFW_PRESS){
         auto newPos = Transform.GetMatrix();
@@ -152,12 +156,17 @@ void Missile::OnUpdate(const GameTime& time)
 
         if(!hasBeenShot){
             auto newPos = Transform.GetMatrix();
-            
+
             Transform.Translation.X += 0.05 * newPos.m10;
             Transform.Translation.Y += 0.05 * newPos.m11;
             Transform.Translation.Z += 0.05 * newPos.m12;
             
+            std::cout << "--------------------" << std::endl;
+            std::cout << "X: " << Transform.Translation.X << std::endl;
+            std::cout << "--------------------" << std::endl;
+            
             hasBeenShot = true;
+            backToShip = true;
         }
     }
     else if(glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_RELEASE)
