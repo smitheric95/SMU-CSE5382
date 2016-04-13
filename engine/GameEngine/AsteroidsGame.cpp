@@ -21,7 +21,7 @@ using namespace std;
 
 bool AsteroidsGame::OnCreateScene()
 {
-    curShip = CreateShip();
+    curShip = &CreateShip();
     
     for(int i=0;i<20;i++){
         CreateAsteroid();
@@ -29,7 +29,7 @@ bool AsteroidsGame::OnCreateScene()
     }
     
     for(int i=0;i<10;i++){
-        allMissiles.push_back( CreateMissile(i) );
+        allMissiles.push_back( &CreateMissile(i) );
     }
     
     auto& cam = Game::Camera;
@@ -83,9 +83,11 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
         
         //find the first inactive missile
         for(int i=0;i<allMissiles.size();i++){
-            if( !allMissiles[i].isActive ){
-                curMissile = &allMissiles[i];
-                std::cout << "allMissiles[i]: " << &allMissiles[i] << std::endl;
+            if( !allMissiles[i]->isActive ){
+                curMissile = allMissiles[i];
+                curMissile->Transform.Translation = curShip->Transform.Translation;
+                
+                std::cout << "allMissiles[i]: " << allMissiles[i]->name << std::endl;
                 break;
             }
         }

@@ -30,9 +30,9 @@ public:
     Ship& CreateShip();
     Asteroid& CreateAsteroid();
     Missile& CreateMissile(int i);
-    vector<Missile> allMissiles;
+    vector<Missile*> allMissiles;
     
-    Ship curShip;
+    Ship* curShip;
     bool spacePressed;
     
     void OnUpdate(const GameTime & time) override;
