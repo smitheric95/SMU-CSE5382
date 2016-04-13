@@ -71,14 +71,18 @@ void Missile::OnUpdate(const GameTime& time)
     
     if( (currentTranslation.X < (-1*halfWidth) || currentTranslation.X > halfWidth) && !hasSwitchedX ){
         
-        if( previousTranslation.X < 0 )
-            previousTranslation.X -= 2*(abs(currentTranslation.X) - abs(previousTranslation.X));
-        else if( previousTranslation.X > 0 )
-            previousTranslation.X += 2*(abs(currentTranslation.X) - abs(previousTranslation.X));
-        
-        previousTranslation.X *= -1;
-        currentTranslation.X *= -1;
-        hasSwitchedX = true;
+        if( hasBeenShot )
+            isActive = false;
+        else{
+            if( previousTranslation.X < 0 )
+                previousTranslation.X -= 2*(abs(currentTranslation.X) - abs(previousTranslation.X));
+            else if( previousTranslation.X > 0 )
+                previousTranslation.X += 2*(abs(currentTranslation.X) - abs(previousTranslation.X));
+            
+            previousTranslation.X *= -1;
+            currentTranslation.X *= -1;
+            hasSwitchedX = true;
+        }
     }
     else if(currentTranslation.X > (-1*halfWidth) && currentTranslation.X < (halfWidth)){
         hasSwitchedX = false;
@@ -86,14 +90,18 @@ void Missile::OnUpdate(const GameTime& time)
     
     if( (currentTranslation.Y < (-1*halfHeight) || currentTranslation.Y > halfHeight) && !hasSwitchedY ){
         
-        if( previousTranslation.Y < 0 )
-            previousTranslation.Y -= 2*(abs(currentTranslation.Y) - abs(previousTranslation.Y));
-        else if( previousTranslation.Y > 0 )
-            previousTranslation.Y += 2*(abs(currentTranslation.Y) - abs(previousTranslation.Y));
-        
-        previousTranslation.Y *= -1;
-        currentTranslation.Y *= -1;
-        hasSwitchedY = true;
+        if( hasBeenShot )
+            isActive = false;
+        else{
+            if( previousTranslation.Y < 0 )
+                previousTranslation.Y -= 2*(abs(currentTranslation.Y) - abs(previousTranslation.Y));
+            else if( previousTranslation.Y > 0 )
+                previousTranslation.Y += 2*(abs(currentTranslation.Y) - abs(previousTranslation.Y));
+            
+            previousTranslation.Y *= -1;
+            currentTranslation.Y *= -1;
+            hasSwitchedY = true;
+        }
     }
     else if(currentTranslation.Y > (-1*halfHeight) && currentTranslation.Y < (halfHeight)){
         hasSwitchedY = false;
@@ -135,14 +143,17 @@ void Missile::OnUpdate(const GameTime& time)
     
     if(isActive && glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_PRESS){
         
-        hasBeenShot = true;
-        
         std::cout << "FIRE MISSILE!" << std::endl;
-        auto newPos = Transform.GetMatrix();
-        
-        Transform.Translation.X += 0.005 * newPos.m10;
-        Transform.Translation.Y += 0.005 * newPos.m11;
-        Transform.Translation.Z += 0.005 * newPos.m12;
+
+        if(!hasBeenShot){
+            auto newPos = Transform.GetMatrix();
+            
+            Transform.Translation.X += 0.05 * newPos.m10;
+            Transform.Translation.Y += 0.05 * newPos.m11;
+            Transform.Translation.Z += 0.05 * newPos.m12;
+            
+            hasBeenShot = true;
+        }
     }
     
 }

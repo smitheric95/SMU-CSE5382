@@ -28,7 +28,7 @@ bool AsteroidsGame::OnCreateScene()
         
     }
     
-    for(int i=0;i<20;i++){
+    for(int i=0;i<10;i++){
         Missile cur = CreateMissile();
         cur.name = i;
         allMissiles.push_back( cur );
@@ -75,13 +75,18 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
 
    
     if(glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_PRESS){
-        Missile curMissile = allMissiles.back();
-        
+        Missile curMissile = allMissiles[0];
+        /*
+        for(int i=0;i<allMissiles.size();i++){
+            if( !allMissiles[i].isActive ){
+                curMissile = allMissiles[i];
+                break;
+            }
+        }
+        */
         if( allMissiles.size() != 0 ){
-            //allMissiles.pop_back();
     
             std::cout << curMissile.name << std::endl;
-            std::cout << curMissile.Transform.Translation.Y << std::endl;
             std::cout << "---------" << std::endl;
         
             curMissile.isActive = true;
