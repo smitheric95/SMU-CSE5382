@@ -37,7 +37,7 @@ public:
     float getPreviousFrameTime();
     void setPreviousFrameTime( float previousFrameTime );
     
-    int name;
+    string name;
     bool isActive;
     bool hasBeenShot;
     bool spacePressed;

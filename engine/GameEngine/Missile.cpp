@@ -48,6 +48,9 @@ bool Missile::OnInitialize()
     mesh.Material = &material;
     material.FillType = PolygonMode::Line;
     mesh.Type = BeginMode::Lines;
+    
+    isActive = false;
+    hasBeenShot = false;
         
     return material.Build("Shaders/primitive");
 }
@@ -140,8 +143,14 @@ void Missile::OnUpdate(const GameTime& time)
     if((!hasBeenShot || !isActive) && glfwGetKey(window,GLFW_KEY_LEFT) == GLFW_PRESS){
         Transform.Rotation.Z -= 0.1;
     }
+  
+    if( this->name == "missile #0" ){
+        std::cout << "name: " << this->name << std::endl;
+        std::cout << this << std::endl;
+        std::cout << "-------------------" << std::endl;
+    }
     
-    
+    //shot the missile if it hasn't been shot
     if(isActive && !spacePressed && glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_PRESS){
         spacePressed = true;
 

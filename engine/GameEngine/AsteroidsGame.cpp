@@ -29,9 +29,7 @@ bool AsteroidsGame::OnCreateScene()
     }
     
     for(int i=0;i<10;i++){
-        Missile cur = CreateMissile();
-        cur.name = i;
-        allMissiles.push_back( cur );
+        allMissiles.push_back( CreateMissile(i) );
     }
     
     auto& cam = Game::Camera;
@@ -62,22 +60,29 @@ Asteroid& AsteroidsGame::CreateAsteroid()
     return asteroid;
 }
 
-Missile& AsteroidsGame::CreateMissile()
+Missile& AsteroidsGame::CreateMissile(int i)
 {
     auto& missile = Create<Missile>("missile");
+    
+    std::ostringstream sstream;
+    sstream << "missile #" << i;
+    missile.name = sstream.str();
     
     return missile;
 }
 
+//logic for handling missiles
 void AsteroidsGame::OnUpdate(const GameTime & time){
     Game curGame = Game::Instance();
     GLFWwindow* window = curGame.Window();
-    
+
+    //if the spacebar is pressed once
     if(!spacePressed && glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_PRESS){
         spacePressed = true;
         Missile* curMissile = nullptr;
-
-         for(int i=0;i<allMissiles.size();i++){
+        
+        //find the first inactive missile
+        for(int i=0;i<allMissiles.size();i++){
             if( !allMissiles[i].isActive ){
                 curMissile = &allMissiles[i];
                 std::cout << "allMissiles[i]: " << &allMissiles[i] << std::endl;
@@ -85,8 +90,10 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
             }
         }
         
+        //set the missile to active
         if( curMissile != nullptr ){
-            std::cout << "Missile #: " << curMissile->name << std::endl;
+            std::cout << "----FIRE-----" << std::endl;
+            std::cout << curMissile->name << std::endl;
             std::cout << "---------" << std::endl;
             
             curMissile->isActive = true;

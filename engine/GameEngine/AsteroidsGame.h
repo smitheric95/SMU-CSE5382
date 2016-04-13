@@ -29,7 +29,7 @@ public:
     
     Ship& CreateShip();
     Asteroid& CreateAsteroid();
-    Missile& CreateMissile();
+    Missile& CreateMissile(int i);
     vector<Missile> allMissiles;
     
     Ship curShip;
