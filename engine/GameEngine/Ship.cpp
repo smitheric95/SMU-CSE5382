@@ -115,7 +115,7 @@ void Ship::OnUpdate(const GameTime& time)
     Transform.Translation = currentTranslation;
     
     Transform.Translation += velocity;
-    /*
+    
     if(glfwGetKey(window,GLFW_KEY_UP) == GLFW_PRESS){
         auto newPos = Transform.GetMatrix();
         
@@ -123,7 +123,7 @@ void Ship::OnUpdate(const GameTime& time)
         Transform.Translation.Y += 0.005 * newPos.m11;
         Transform.Translation.Z += 0.005 * newPos.m12;
     }
-    */
+    
     if(glfwGetKey(window,GLFW_KEY_RIGHT) == GLFW_PRESS){
         Transform.Rotation.Z += 0.1;
     }

@@ -85,6 +85,8 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
             std::cout << "---------" << std::endl;
         
             curMissile.isActive = true;
+            //curMissile.hasBeenShot = true;
+            
             std::cout << curMissile.isActive << std::endl;
             
             //don't have access to transform.translation, but do have missile.currentTranslation

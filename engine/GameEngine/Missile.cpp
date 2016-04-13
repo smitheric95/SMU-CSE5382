@@ -117,7 +117,7 @@ void Missile::OnUpdate(const GameTime& time)
     
     Transform.Translation += velocity;
     
-    if(glfwGetKey(window,GLFW_KEY_UP) == GLFW_PRESS){
+    if(!hasBeenShot && glfwGetKey(window,GLFW_KEY_UP) == GLFW_PRESS){
         auto newPos = Transform.GetMatrix();
         
         Transform.Translation.X += 0.005 * newPos.m10;
@@ -125,15 +125,17 @@ void Missile::OnUpdate(const GameTime& time)
         Transform.Translation.Z += 0.005 * newPos.m12;
     }
     
-    if(!isActive && glfwGetKey(window,GLFW_KEY_RIGHT) == GLFW_PRESS){
+    if((!hasBeenShot || !isActive) && glfwGetKey(window,GLFW_KEY_RIGHT) == GLFW_PRESS){
         Transform.Rotation.Z += 0.1;
     }
     
-    if(!isActive && glfwGetKey(window,GLFW_KEY_LEFT) == GLFW_PRESS){
+    if((!hasBeenShot || !isActive) && glfwGetKey(window,GLFW_KEY_LEFT) == GLFW_PRESS){
         Transform.Rotation.Z -= 0.1;
     }
     
     if(isActive && glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_PRESS){
+        
+        hasBeenShot = true;
         
         std::cout << "FIRE MISSILE!" << std::endl;
         auto newPos = Transform.GetMatrix();

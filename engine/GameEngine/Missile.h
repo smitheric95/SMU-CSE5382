@@ -39,6 +39,7 @@ public:
     
     int name;
     bool isActive;
+    bool hasBeenShot;
     
 private:
     Mesh* m_mesh;
