@@ -48,8 +48,7 @@ bool Missile::OnInitialize()
     mesh.Material = &material;
     material.FillType = PolygonMode::Line;
     mesh.Type = BeginMode::Lines;
-    
-    
+        
     return material.Build("Shaders/primitive");
 }
 
@@ -126,15 +125,17 @@ void Missile::OnUpdate(const GameTime& time)
         Transform.Translation.Z += 0.005 * newPos.m12;
     }
     
-    if(glfwGetKey(window,GLFW_KEY_RIGHT) == GLFW_PRESS){
+    if(!isActive && glfwGetKey(window,GLFW_KEY_RIGHT) == GLFW_PRESS){
         Transform.Rotation.Z += 0.1;
     }
     
-    if(glfwGetKey(window,GLFW_KEY_LEFT) == GLFW_PRESS){
+    if(!isActive && glfwGetKey(window,GLFW_KEY_LEFT) == GLFW_PRESS){
         Transform.Rotation.Z -= 0.1;
     }
     
-    if(glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_PRESS){
+    if(isActive && glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_PRESS){
+        
+        std::cout << "FIRE MISSILE!" << std::endl;
         auto newPos = Transform.GetMatrix();
         
         Transform.Translation.X += 0.005 * newPos.m10;

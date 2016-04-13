@@ -21,7 +21,7 @@ using namespace std;
 
 bool AsteroidsGame::OnCreateScene()
 {
-    CreateShip();
+    curShip = CreateShip();
     
     for(int i=0;i<20;i++){
         CreateAsteroid();
@@ -29,7 +29,9 @@ bool AsteroidsGame::OnCreateScene()
     }
     
     for(int i=0;i<20;i++){
-        allMissiles.push_back( CreateMissile() );
+        Missile cur = CreateMissile();
+        cur.name = i;
+        allMissiles.push_back( cur );
     }
     
     auto& cam = Game::Camera;
@@ -64,27 +66,37 @@ Missile& AsteroidsGame::CreateMissile()
 {
     auto& missile = Create<Missile>("missile");
     
-    allMissiles.push_back(missile);
-    
     return missile;
 }
 
 void AsteroidsGame::OnUpdate(const GameTime & time){
     Game curGame = Game::Instance();
     GLFWwindow* window = curGame.Window();
-    
-    /
-        shooting all missiles at once instead of one
-    /
+
+   
     if(glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_PRESS){
-        Missile curMissile = allMissiles.front();
-        allMissiles.pop_back();
+        Missile curMissile = allMissiles.back();
         
-        auto newPos = curMissile.Transform.GetMatrix();
+        if( allMissiles.size() != 0 ){
+            //allMissiles.pop_back();
+    
+            std::cout << curMissile.name << std::endl;
+            std::cout << curMissile.Transform.Translation.Y << std::endl;
+            std::cout << "---------" << std::endl;
         
-        curMissile.Transform.Translation.X += 0.005 * newPos.m10;
-        curMissile.Transform.Translation.Y += 0.005 * newPos.m11;
-        curMissile.Transform.Translation.Z += 0.005 * newPos.m12;
+            curMissile.isActive = true;
+            std::cout << curMissile.isActive << std::endl;
+            
+            //don't have access to transform.translation, but do have missile.currentTranslation
+            
+            //auto newPos = curMissile.Transform.GetMatrix();
+            
+            //curMissile.Transform.Translation.X += 0.005 * newPos.m10;
+            
+            std::cout << curMissile.name << std::endl;
+            std::cout << curMissile.Transform.Translation.Y << std::endl;
+            std::cout << "---------" << std::endl;
+        }
     }
 }
 

@@ -37,6 +37,9 @@ public:
     float getPreviousFrameTime();
     void setPreviousFrameTime( float previousFrameTime );
     
+    int name;
+    bool isActive;
+    
 private:
     Mesh* m_mesh;
     Material* m_material;

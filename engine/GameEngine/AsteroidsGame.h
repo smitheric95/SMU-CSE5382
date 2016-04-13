@@ -32,6 +32,8 @@ public:
     Missile& CreateMissile();
     vector<Missile> allMissiles;
     
+    Ship curShip;
+    
     void OnUpdate(const GameTime & time) override;
     
 private:
