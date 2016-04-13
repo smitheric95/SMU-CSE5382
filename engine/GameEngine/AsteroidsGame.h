@@ -33,6 +33,7 @@ public:
     vector<Missile> allMissiles;
     
     Ship curShip;
+    bool spacePressed;
     
     void OnUpdate(const GameTime & time) override;
     

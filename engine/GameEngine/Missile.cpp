@@ -141,9 +141,9 @@ void Missile::OnUpdate(const GameTime& time)
         Transform.Rotation.Z -= 0.1;
     }
     
-    if(isActive && glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_PRESS){
-        
-        std::cout << "FIRE MISSILE!" << std::endl;
+    
+    if(isActive && !spacePressed && glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_PRESS){
+        spacePressed = true;
 
         if(!hasBeenShot){
             auto newPos = Transform.GetMatrix();
@@ -155,6 +155,8 @@ void Missile::OnUpdate(const GameTime& time)
             hasBeenShot = true;
         }
     }
+    else if(glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_RELEASE)
+        spacePressed = false;
     
 }
 

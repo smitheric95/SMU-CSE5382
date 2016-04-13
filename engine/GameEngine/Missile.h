@@ -40,6 +40,7 @@ public:
     int name;
     bool isActive;
     bool hasBeenShot;
+    bool spacePressed;
     
 private:
     Mesh* m_mesh;

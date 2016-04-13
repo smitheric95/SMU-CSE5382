@@ -72,38 +72,28 @@ Missile& AsteroidsGame::CreateMissile()
 void AsteroidsGame::OnUpdate(const GameTime & time){
     Game curGame = Game::Instance();
     GLFWwindow* window = curGame.Window();
+    
+    if(!spacePressed && glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_PRESS){
+        spacePressed = true;
+        Missile* curMissile = nullptr;
 
-   
-    if(glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_PRESS){
-        Missile curMissile = allMissiles[0];
-        /*
-        for(int i=0;i<allMissiles.size();i++){
+         for(int i=0;i<allMissiles.size();i++){
             if( !allMissiles[i].isActive ){
-                curMissile = allMissiles[i];
+                curMissile = &allMissiles[i];
+                std::cout << "allMissiles[i]: " << &allMissiles[i] << std::endl;
                 break;
             }
         }
-        */
-        if( allMissiles.size() != 0 ){
-    
-            std::cout << curMissile.name << std::endl;
-            std::cout << "---------" << std::endl;
         
-            curMissile.isActive = true;
-            //curMissile.hasBeenShot = true;
-            
-            std::cout << curMissile.isActive << std::endl;
-            
-            //don't have access to transform.translation, but do have missile.currentTranslation
-            
-            //auto newPos = curMissile.Transform.GetMatrix();
-            
-            //curMissile.Transform.Translation.X += 0.005 * newPos.m10;
-            
-            std::cout << curMissile.name << std::endl;
-            std::cout << curMissile.Transform.Translation.Y << std::endl;
+        if( curMissile != nullptr ){
+            std::cout << "Missile #: " << curMissile->name << std::endl;
             std::cout << "---------" << std::endl;
+            
+            curMissile->isActive = true;
         }
+        
     }
+    else if(glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_RELEASE)
+        spacePressed = false;
 }
 
