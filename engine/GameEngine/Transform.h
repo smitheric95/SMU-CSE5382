@@ -13,6 +13,7 @@
 #include "GameObject.h"
 #include "Vectors.h"
 #include "Matrix.h"
+#include "BoundingSphere.h"
 
 class Transform 
 {
@@ -24,6 +25,11 @@ public:
     Transform()
     {
         Scale.X = Scale.Y = Scale.Z = 1;
+    }
+    
+    Transform(BoundingSphere s){
+        //Vector3 center = s.boundCenter * GetMatrix() - s.boundRadius;
+        //return BoundingSphere(center, s.boundRadius);
     }
     
     Matrix GetMatrix()

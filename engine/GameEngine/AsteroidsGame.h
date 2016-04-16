@@ -36,6 +36,8 @@ public:
     bool spacePressed;
     
     void OnUpdate(const GameTime & time) override;
+    void OnPreUpdate(const GameTime & time);
+        
     
 private:
     

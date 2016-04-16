@@ -14,8 +14,6 @@ BoundingSphere::BoundingSphere(){
 }
 
 BoundingSphere::BoundingSphere(Vector3 center, float radius){
-    std::cout << "in boundingsphere " << std::endl;
-    
     this->boundRadius = radius;
     this->boundCenter = center;
 }

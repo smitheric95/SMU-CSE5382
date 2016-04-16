@@ -28,7 +28,7 @@ bool AsteroidsGame::OnCreateScene()
         
     }
     
-    for(int i=0;i<10;i++){
+    for(int i=0;i<30;i++){
         allMissiles.push_back( &CreateMissile(i) );
     }
     
@@ -71,6 +71,10 @@ Missile& AsteroidsGame::CreateMissile(int i)
     return missile;
 }
 
+void AsteroidsGame::OnPreUpdate(const GameTime & time){
+    
+}
+
 //logic for handling missiles
 void AsteroidsGame::OnUpdate(const GameTime & time){
     Game curGame = Game::Instance();
@@ -95,13 +99,6 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
         
         //set the missile to active
         if( curMissile != nullptr ){
-            std::cout << "----FIRE-----" << std::endl;
-            std::cout << "name: " << curMissile->name << std::endl;
-            std::cout << "isActive: " << curMissile->isActive << std::endl;
-            std::cout << "hasBeenShot: " << curMissile->hasBeenShot << std::endl;
-            std::cout << "Ship X: " << curShip->Transform.Translation.X << std::endl;
-            std::cout << "X: " << curMissile->Transform.Translation.X << std::endl;
-            std::cout << "---------" << std::endl;
             
             curMissile->isActive = true;
         }

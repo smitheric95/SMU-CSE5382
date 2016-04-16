@@ -128,8 +128,8 @@ void Missile::OnUpdate(const GameTime& time)
     previousTranslation = currentTranslation;
     
     Transform.Translation = currentTranslation;
+    
     if( backToShip ){
-        
         Transform.Translation += velocity;
     }
     
@@ -160,10 +160,6 @@ void Missile::OnUpdate(const GameTime& time)
             Transform.Translation.X += 0.05 * newPos.m10;
             Transform.Translation.Y += 0.05 * newPos.m11;
             Transform.Translation.Z += 0.05 * newPos.m12;
-            
-            std::cout << "--------------------" << std::endl;
-            std::cout << "X: " << Transform.Translation.X << std::endl;
-            std::cout << "--------------------" << std::endl;
             
             hasBeenShot = true;
             backToShip = true;
