@@ -39,7 +39,7 @@ bool Ship::OnInitialize()
     m_mesh = &mesh;
     
     //set up bounding sphere - from verts of ship, ast, missiles
-    bounds = BoundingSphere(vertices);
+    //bounds = BoundingSphere(vertices);
     
     auto& material = Create<class Material>("ship-material");
     m_material = &material;
