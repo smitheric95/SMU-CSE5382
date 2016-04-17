@@ -44,7 +44,6 @@ public:
         return BoundingSphere(cPrime, rPrime);
     }
     
-    bool OnInitialize() override;
 };
 
 

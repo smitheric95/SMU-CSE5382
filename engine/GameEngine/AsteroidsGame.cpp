@@ -23,12 +23,12 @@ bool AsteroidsGame::OnCreateScene()
 {
     curShip = &CreateShip();
     
-    for(int i=0;i<20;i++){
-        CreateAsteroid();
+    for(int i=0;i<numAsteroids;i++){
+        allAsteroids.push_back( &CreateAsteroid() );
         
     }
     
-    for(int i=0;i<30;i++){
+    for(int i=0;i<numMissiles;i++){
         allMissiles.push_back( &CreateMissile(i) );
     }
     
@@ -74,10 +74,15 @@ Missile& AsteroidsGame::CreateMissile(int i)
 void AsteroidsGame::OnPreUpdate(const GameTime & time){
     //take care of collisons
     /*
-     loop thru ast, does transform.boudingSphere overlap bounding (trans.bounds) of missile/ship?
+     loop thru ast, does getTransBounds overlap bounding (trans.bounds) of missile/ship?
      */
     
-    //for(int i=0;i<)
+    BoundingSphere shipBounds = curShip->getTransformedBounds();
+    
+    for(int i=0;i<numAsteroids;i++){
+        if( allAsteroids[i]->getTransformedBounds().Intersects(shipBounds) )
+            std::cout << "COLLISION" << std::endl;
+    }
     //boundingsphere shipBounds = boundingsphere getTransBounds()
     
 }
