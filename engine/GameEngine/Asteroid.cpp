@@ -51,7 +51,7 @@ bool Asteroid::OnInitialize()
     
     m_mesh = &mesh;
     
-    
+    bounds = BoundingSphere(vertices);
     
     auto& material = Create<class Material>("ship-material");
     m_material = &material;

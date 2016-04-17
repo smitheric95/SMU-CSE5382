@@ -75,6 +75,16 @@ public:
         return Multiply(*this, right);
     }
     
+    Vector3 operator*(const Vector3 &v){
+        Vector3 vPrime;
+        
+        vPrime.X = v.X * m00 + v.Y * m01 + v.Z * m02;
+        vPrime.Y = v.X * m10 + v.Y * m11 + v.Z * m12;
+        vPrime.Z = v.X * m20 + v.Y * m21 + v.Z * m22;
+        
+        return vPrime;
+    }
+    
     friend ostream& operator<<(ostream& out, const Matrix& m);
     
     

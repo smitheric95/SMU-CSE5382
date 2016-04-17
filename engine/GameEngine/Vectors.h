@@ -9,6 +9,7 @@
 #ifndef VECTORS_H
 #define VECTORS_H
 
+#include <math.h>
 
 struct Vector2
 {
@@ -104,6 +105,17 @@ struct Vector3 : public Vector2
     {
         return Vector3(X - rval.X, Y - rval.Y, Z - rval.Z);
         
+    }
+
+    template<typename T>
+    inline float distance(const T& rval)
+    {
+        float xD = rval.X - X;
+        float yD = rval.Y - Y;
+        float zD = rval.Z - Z;
+        
+        float distance = sqrtf( (xD*xD + yD*yD + zD*zD) );
+        return distance;
     }
     
     

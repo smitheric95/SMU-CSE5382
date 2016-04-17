@@ -40,7 +40,8 @@ bool Missile::OnInitialize()
     mesh.Initialize(vertices, indices);
     
     m_mesh = &mesh;
-
+    
+    bounds = BoundingSphere(vertices);
     
     auto& material = Create<class Material>("ship-material");
     m_material = &material;
@@ -122,6 +123,7 @@ void Missile::OnUpdate(const GameTime& time)
     //find velocity
     Vector3 velocity = (currentTranslation - previousTranslation) * timeScale;
     
+    float drag = 0.015;
     
     //prev = cur at beginning of each frame
     
@@ -129,7 +131,10 @@ void Missile::OnUpdate(const GameTime& time)
     
     Transform.Translation = currentTranslation;
     
-    if( backToShip ){
+    if( backToShip && !hasBeenShot ){
+        Transform.Translation += velocity * (1 - drag);
+    }
+    else if( backToShip ){
         Transform.Translation += velocity;
     }
     

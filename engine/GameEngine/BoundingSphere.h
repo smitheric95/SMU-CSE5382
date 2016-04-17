@@ -24,7 +24,9 @@ public:
     Vector3 matrix;
     BoundingSphere();
     BoundingSphere(Vector3 center, float radius);
+    BoundingSphere(vector<float> vertices);
     BoundingSphere(std::vector<Vector3> vertices);
+    bool Intersects(BoundingSphere s);
 };
 
 #endif /* BoundingSphere_h */

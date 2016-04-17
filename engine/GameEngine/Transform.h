@@ -27,11 +27,7 @@ public:
         Scale.X = Scale.Y = Scale.Z = 1;
     }
     
-    Transform(BoundingSphere s){
-        //Vector3 center = s.boundCenter * GetMatrix() - s.boundRadius;
-        //return BoundingSphere(center, s.boundRadius);
-    }
-    
+ 
     Matrix GetMatrix()
     {
         auto mt = Matrix::CreateTranslation(Translation);

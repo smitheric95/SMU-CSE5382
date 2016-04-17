@@ -28,6 +28,7 @@ public:
     void OnRender(const GameTime& time) override;
     
     Vector3 currentTranslation, previousTranslation;
+    BoundingSphere bounds;
     
     bool hasSwitchedX = false;
     bool hasSwitchedY = false;

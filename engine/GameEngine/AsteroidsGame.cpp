@@ -72,6 +72,13 @@ Missile& AsteroidsGame::CreateMissile(int i)
 }
 
 void AsteroidsGame::OnPreUpdate(const GameTime & time){
+    //take care of collisons
+    /*
+     loop thru ast, does transform.boudingSphere overlap bounding (trans.bounds) of missile/ship?
+     */
+    
+    //for(int i=0;i<)
+    //boundingsphere shipBounds = boundingsphere getTransBounds()
     
 }
 

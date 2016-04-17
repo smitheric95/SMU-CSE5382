@@ -32,14 +32,14 @@ bool Ship::OnInitialize()
         -1/3.f, -0.5f, 0
     };
     
-    
     vector<GLushort> indices = {0,1,2};
     
     mesh.Initialize(vertices, indices);
     
     m_mesh = &mesh;
     
-    
+    //set up bounding sphere - from verts of ship, ast, missiles
+    bounds = BoundingSphere(vertices);
     
     auto& material = Create<class Material>("ship-material");
     m_material = &material;
@@ -108,13 +108,14 @@ void Ship::OnUpdate(const GameTime& time)
     //find velocity
     Vector3 velocity = (currentTranslation - previousTranslation) * timeScale;
     
+    float drag = 0.015;
     
     //prev = cur at beginning of each frame
     previousTranslation = currentTranslation;
     
     Transform.Translation = currentTranslation;
     
-    Transform.Translation += velocity;
+    Transform.Translation += velocity * (1 - drag);
     
     if(glfwGetKey(window,GLFW_KEY_UP) == GLFW_PRESS){
         auto newPos = Transform.GetMatrix();
