@@ -81,9 +81,15 @@ void AsteroidsGame::OnPreUpdate(const GameTime & time){
     
     for(int i=0;i<numAsteroids;i++){
         if( allAsteroids[i]->getTransformedBounds().Intersects(shipBounds) )
-            std::cout << "COLLISION" << std::endl;
+            std::cout << "ASTEROID HITS SHIP" << std::endl;
+        
+        for(int j=0;j<numMissiles;j++){
+            BoundingSphere missileBounds = allMissiles[j]->getTransformedBounds();
+            
+            if( allAsteroids[i]->getTransformedBounds().Intersects(missileBounds) )
+                std::cout << "MISSILE HITS ASTEROID" << std::endl;
+        }
     }
-    //boundingsphere shipBounds = boundingsphere getTransBounds()
     
 }
 
