@@ -25,7 +25,7 @@ bool BoundingSphere::Intersects(BoundingSphere s){
         return false;
 }
 
-BoundingSphere::BoundingSphere(Vector3 center, float radius){
+BoundingSphere::BoundingSphere(Vector4 center, float radius){
     this->boundRadius = radius;
     this->boundCenter = center;
 }
@@ -35,15 +35,15 @@ BoundingSphere::BoundingSphere(vector<float> vertices){
     //difference between midpoint and max||min is radius
     
     float maxX, maxY, maxZ;
-    maxX = maxY = maxZ = std::numeric_limits<float>::min();
+    maxX = maxY = maxZ = (-1 * std::numeric_limits<float>::max());
     float minX, minY, minZ;
     minX = minY = minZ = std::numeric_limits<float>::max();
     
-    for(int i=0;i<3;i++){
+    for(int i=0;i<vertices.size()/3;i++){
         
-        float x = 3*i;
-        float y = (3*i) + 1;
-        float z = (3*i) + 2;
+        float x = vertices[(3*i)];
+        float y = vertices[((3*i) + 1)];
+        float z = vertices[((3*i) + 2)];
         
         if( x > maxX )
             maxX = x;
@@ -67,8 +67,8 @@ BoundingSphere::BoundingSphere(vector<float> vertices){
     
     this->boundCenter = Vector3(midpointX, midpointY, midpointZ);
     
-    float diffX = maxX = midpointX;
-    float diffY = maxY = midpointY;
+    float diffX = maxX - midpointX;
+    float diffY = maxY - midpointY;
     
     if( diffX > diffY )
         this->boundRadius = diffX;

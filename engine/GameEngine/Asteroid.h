@@ -23,7 +23,7 @@ public:
     }
     
     bool OnInitialize() override;
-    BoundingSphere bounds;
+//    BoundingSphere bounds;
     
     void OnUpdate(const GameTime& time) override;
     void OnRender(const GameTime& time) override;

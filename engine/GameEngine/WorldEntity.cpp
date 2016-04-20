@@ -8,3 +8,9 @@
 
 #include "WorldEntity.h"
 
+void WorldEntity::OnPreUpdate(const GameTime& time)
+{
+    
+}
+
+

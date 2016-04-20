@@ -29,7 +29,7 @@ public:
     
     Vector3 currentTranslation, previousTranslation;
     
-    BoundingSphere bounds;
+//    BoundingSphere bounds;
     
     bool hasSwitchedX = false;
     bool hasSwitchedY = false;

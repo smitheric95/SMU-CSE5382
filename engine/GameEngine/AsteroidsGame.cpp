@@ -76,17 +76,19 @@ void AsteroidsGame::OnPreUpdate(const GameTime & time){
     /*
      loop thru ast, does getTransBounds overlap bounding (trans.bounds) of missile/ship?
      */
-    
+        
     BoundingSphere shipBounds = curShip->getTransformedBounds();
     
     for(int i=0;i<numAsteroids;i++){
-        if( allAsteroids[i]->getTransformedBounds().Intersects(shipBounds) )
+        BoundingSphere temp = allAsteroids[i]->getTransformedBounds();
+        
+        if( temp.Intersects(shipBounds) )
             std::cout << "ASTEROID HITS SHIP" << std::endl;
         
         for(int j=0;j<numMissiles;j++){
             BoundingSphere missileBounds = allMissiles[j]->getTransformedBounds();
             
-            if( allAsteroids[i]->getTransformedBounds().Intersects(missileBounds) )
+            if( temp.Intersects(missileBounds) )
                 std::cout << "MISSILE HITS ASTEROID" << std::endl;
         }
     }

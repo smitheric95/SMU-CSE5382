@@ -75,12 +75,12 @@ public:
         return Multiply(*this, right);
     }
     
-    Vector3 operator*(const Vector3 &v){
+    Vector3 operator*(const Vector4 &v){
         Vector3 vPrime;
         
-        vPrime.X = v.X * m00 + v.Y * m01 + v.Z * m02;
-        vPrime.Y = v.X * m10 + v.Y * m11 + v.Z * m12;
-        vPrime.Z = v.X * m20 + v.Y * m21 + v.Z * m22;
+        vPrime.X = (v.X * m00) + (v.Y * m01) + (v.Z * m02) + (v.W * m03);
+        vPrime.Y = (v.X * m10) + (v.Y * m11) + (v.Z * m12) + (v.W * m13);
+        vPrime.Z = (v.X * m20) + (v.Y * m21) + (v.Z * m22) + (v.W * m23);
         
         return vPrime;
     }

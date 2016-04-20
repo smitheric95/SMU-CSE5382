@@ -18,7 +18,7 @@
 
 class BoundingSphere{
 public:
-    Vector3 boundCenter;
+    Vector4 boundCenter;
     float boundRadius;
     
     Vector3 matrix;

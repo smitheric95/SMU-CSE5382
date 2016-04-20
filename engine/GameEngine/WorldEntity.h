@@ -34,8 +34,8 @@ public:
          return BoundingSphere(c', r')
         */
         
-        Vector3 c = Bounds.boundCenter;
-        Vector3 o = Bounds.boundCenter + Vector3(Bounds.boundRadius, 0, 0);
+        Vector4 c = Bounds.boundCenter;
+        Vector4 o = Bounds.boundCenter + Vector3(Bounds.boundRadius, 0, 0);
         
         Vector3 cPrime = Transform.GetMatrix() * c;
         Vector3 oPrime = Transform.GetMatrix() * o;
@@ -43,6 +43,8 @@ public:
         
         return BoundingSphere(cPrime, rPrime);
     }
+    
+    void OnPreUpdate(const GameTime& time) override;
     
 };
 

@@ -34,14 +34,14 @@ public:
     vector<Missile*> allMissiles;
     vector<Asteroid*> allAsteroids;
     
-    int numAsteroids = 3;
+    int numAsteroids = 1;
     int numMissiles = 20;
     
     Ship* curShip;
     bool spacePressed;
     
     void OnUpdate(const GameTime & time) override;
-    void OnPreUpdate(const GameTime & time);
+    void OnPreUpdate(const GameTime & time) override;
         
     
 private:

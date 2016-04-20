@@ -114,7 +114,7 @@ struct Vector3 : public Vector2
         float yD = rval.Y - Y;
         float zD = rval.Z - Z;
         
-        float distance = sqrtf( (xD*xD + yD*yD + zD*zD) );
+        float distance = sqrtf( ((xD*xD) + (yD*yD) + (zD*zD)) );
         return distance;
     }
     
