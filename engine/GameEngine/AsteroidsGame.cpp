@@ -80,14 +80,13 @@ void AsteroidsGame::destroyAsteroid(){
 
 void AsteroidsGame::OnPreUpdate(const GameTime & time){
     //take care of collisons
-        
     BoundingSphere shipBounds = curShip->getTransformedBounds();
-    
+
     for(int i=0;i<numAsteroids;i++){
         BoundingSphere temp = allAsteroids[i]->getTransformedBounds();
         
         if( temp.Intersects(shipBounds) )
-            std::cout << "ASTEROID HITS SHIP" << std::endl;
+            std::cout <<  time.TotalSeconds() <<  "ASTEROID HITS SHIP" << std::endl;
         
         for(int j=0;j<numMissiles;j++){
             BoundingSphere missileBounds = allMissiles[j]->getTransformedBounds();
@@ -134,6 +133,10 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
         spacePressed = false;
     
     destroyAsteroid();
+    
+    if( hitAsteroids.size() == allAsteroids.size() ){
+        //start new level 
+    }
     
 }
 

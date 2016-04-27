@@ -77,12 +77,20 @@ struct Vector3 : public Vector2
         return *this;
     }
 
-    template<typename T>
-    inline Vector3& operator=(const T& rval)
+    inline Vector3& operator=(const float& rval)
     {
         X = rval;
         Y = rval;
         Z = rval;
+        
+        return *this;
+    }
+    
+    inline Vector3& operator=(const Vector3& rval)
+    {
+        X = rval.X;
+        Y = rval.Y;
+        Z = rval.Z;
         
         return *this;
     }
@@ -99,6 +107,7 @@ struct Vector3 : public Vector2
         return Vector3(X + rval.X, Y + rval.Y, Z + rval.Z);
         
     }
+    
     
     template<typename T>
     inline Vector3 operator-(const T& rval)
@@ -143,12 +152,12 @@ struct Vector4 : public Vector3
         
     }
     
-    template<typename T>
-    inline Vector4& operator=(const T& rval)
+    inline Vector4& operator=(const Vector4& rval)
     {
         X = rval.X;
         Y = rval.Y;
         Z = rval.Z;
+        W = rval.W;
         
         return *this;
     }

@@ -19,8 +19,8 @@ public:
     Transform Transform;
     BoundingSphere Bounds;
     BoundingSphere getTransformedBounds(){
-        Vector4 c = Bounds.boundCenter;
-        Vector4 o = Bounds.boundCenter + Vector4(Bounds.boundRadius, 0, 0, 0);
+        Vector3 c = Bounds.boundCenter;
+        Vector3 o = Bounds.boundCenter + Vector4(Bounds.boundRadius, 0, 0, 0);
         
         Vector3 cPrime = Transform.GetMatrix() * c;
         Vector3 oPrime = Transform.GetMatrix() * o;

@@ -9,7 +9,7 @@
 #include "BoundingSphere.h"
 #include <limits>
 BoundingSphere::BoundingSphere(){
-    this->boundCenter = Vector4(0,0,0,0);
+    this->boundCenter = Vector4(0,0,0,1);
     this->boundRadius = 0.0;
 }
 
@@ -19,10 +19,8 @@ bool BoundingSphere::Intersects(BoundingSphere s){
     float distance = boundCenter.distance(s.boundCenter);
     float radii = boundRadius + s.boundRadius;
     
-    if( distance > radii )
-        return true;
-    else
-        return false;
+    
+    return distance < radii;
 }
 
 BoundingSphere::BoundingSphere(Vector3 center, float radius){
