@@ -120,6 +120,12 @@ void Ship::OnUpdate(const GameTime& time)
     if(glfwGetKey(window,GLFW_KEY_UP) == GLFW_PRESS){
         auto newPos = Transform.GetMatrix();
         
+        /*
+        Bounds.matrix.X += 0.005 * newPos.m10;
+        Bounds.matrix.Y += 0.005 * newPos.m11;
+        Bounds.matrix.Z += 0.005 * newPos.m12;
+        */
+        
         Transform.Translation.X += 0.005 * newPos.m10;
         Transform.Translation.Y += 0.005 * newPos.m11;
         Transform.Translation.Z += 0.005 * newPos.m12;

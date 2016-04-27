@@ -133,6 +133,9 @@ void Asteroid::OnUpdate(const GameTime& time)
         Transform.Translation.X += 0.0005 * (rand() % 3 + (-1));
         Transform.Translation.Y += 0.0005 * (rand() % 3 + (-1));
         
+        //Bounds.matrix.X += 0.0005 * (rand() % 3 + (-1));
+        //Bounds.matrix.Y += 0.0005 * (rand() % 3 + (-1));
+        
         hasBeenPushed = true;
     }
     

@@ -30,9 +30,11 @@ public:
     Ship& CreateShip();
     Asteroid& CreateAsteroid();
     Missile& CreateMissile(int i);
+    void destroyAsteroid();
     
     vector<Missile*> allMissiles;
     vector<Asteroid*> allAsteroids;
+    vector<int> hitAsteroids;
     
     int numAsteroids = 1;
     int numMissiles = 20;

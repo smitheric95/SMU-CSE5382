@@ -71,11 +71,15 @@ Missile& AsteroidsGame::CreateMissile(int i)
     return missile;
 }
 
+void AsteroidsGame::destroyAsteroid(){
+    for(int i=0;i<hitAsteroids.size();i++){
+        if( allAsteroids[ hitAsteroids[i] ]->Transform.Scale.X > 0.1 )
+            allAsteroids[ hitAsteroids[i] ]->Transform.Scale = allAsteroids[ hitAsteroids[i] ]->Transform.Scale - Vector3(0.5,0.5,0.5);
+    }
+}
+
 void AsteroidsGame::OnPreUpdate(const GameTime & time){
     //take care of collisons
-    /*
-     loop thru ast, does getTransBounds overlap bounding (trans.bounds) of missile/ship?
-     */
         
     BoundingSphere shipBounds = curShip->getTransformedBounds();
     
@@ -102,6 +106,8 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
 
     //if the spacebar is pressed once
     if(!spacePressed && glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_PRESS){
+        //hitAsteroids.push_back(0);//will bemoved to for loop above
+        
         spacePressed = true;
         Missile* curMissile = nullptr;
         
@@ -126,5 +132,8 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
     }
     else if(glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_RELEASE)
         spacePressed = false;
+    
+    destroyAsteroid();
+    
 }
 

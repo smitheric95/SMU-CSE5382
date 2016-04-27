@@ -135,6 +135,23 @@ struct Vector4 : public Vector3
     {
         
     }
+    
+    template<typename T>
+    inline Vector4 operator+(const T& rval)
+    {
+        return Vector4(X + rval.X, Y + rval.Y, Z + rval.Z, W + rval.W);
+        
+    }
+    
+    template<typename T>
+    inline Vector4& operator=(const T& rval)
+    {
+        X = rval.X;
+        Y = rval.Y;
+        Z = rval.Z;
+        
+        return *this;
+    }
 };
 
 
