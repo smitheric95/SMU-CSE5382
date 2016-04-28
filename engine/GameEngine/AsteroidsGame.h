@@ -34,9 +34,10 @@ public:
     
     vector<Missile*> allMissiles;
     vector<Asteroid*> allAsteroids;
-    vector<int> hitAsteroids;
+    //index, missileNumber, rotation of missile
+    vector< pair<int, Vector3> >hitAsteroids;
     
-    int numAsteroids = 1;
+    int numAsteroids = 20;
     int numMissiles = 20;
     
     Ship* curShip;

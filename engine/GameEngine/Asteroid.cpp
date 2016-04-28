@@ -81,36 +81,37 @@ void Asteroid::OnUpdate(const GameTime& time)
     
     currentTranslation = Transform.Translation;
     
-    if( (currentTranslation.X < (-1*halfWidth) || currentTranslation.X > halfWidth) && !hasSwitchedX ){
+    if( isActive ){
+        if( (currentTranslation.X < (-1*halfWidth) || currentTranslation.X > halfWidth) && !hasSwitchedX ){
+            
+            if( previousTranslation.X < 0 )
+                previousTranslation.X -= 2*(abs(currentTranslation.X) - abs(previousTranslation.X));
+            else if( previousTranslation.X > 0 )
+                previousTranslation.X += 2*(abs(currentTranslation.X) - abs(previousTranslation.X));
+            
+            previousTranslation.X *= -1;
+            currentTranslation.X *= -1;
+            hasSwitchedX = true;
+        }
+        else if(currentTranslation.X > (-1*halfWidth) && currentTranslation.X < (halfWidth)){
+            hasSwitchedX = false;
+        }
         
-        if( previousTranslation.X < 0 )
-            previousTranslation.X -= 2*(abs(currentTranslation.X) - abs(previousTranslation.X));
-        else if( previousTranslation.X > 0 )
-            previousTranslation.X += 2*(abs(currentTranslation.X) - abs(previousTranslation.X));
-        
-        previousTranslation.X *= -1;
-        currentTranslation.X *= -1;
-        hasSwitchedX = true;
+        if( (currentTranslation.Y < (-1*halfHeight) || currentTranslation.Y > halfHeight) && !hasSwitchedY ){
+            
+            if( previousTranslation.Y < 0 )
+                previousTranslation.Y -= 2*(abs(currentTranslation.Y) - abs(previousTranslation.Y));
+            else if( previousTranslation.Y > 0 )
+                previousTranslation.Y += 2*(abs(currentTranslation.Y) - abs(previousTranslation.Y));
+            
+            previousTranslation.Y *= -1;
+            currentTranslation.Y *= -1;
+            hasSwitchedY = true;
+        }
+        else if(currentTranslation.Y > (-1*halfHeight) && currentTranslation.Y < (halfHeight)){
+            hasSwitchedY = false;
     }
-    else if(currentTranslation.X > (-1*halfWidth) && currentTranslation.X < (halfWidth)){
-        hasSwitchedX = false;
     }
-    
-    if( (currentTranslation.Y < (-1*halfHeight) || currentTranslation.Y > halfHeight) && !hasSwitchedY ){
-        
-        if( previousTranslation.Y < 0 )
-            previousTranslation.Y -= 2*(abs(currentTranslation.Y) - abs(previousTranslation.Y));
-        else if( previousTranslation.Y > 0 )
-            previousTranslation.Y += 2*(abs(currentTranslation.Y) - abs(previousTranslation.Y));
-        
-        previousTranslation.Y *= -1;
-        currentTranslation.Y *= -1;
-        hasSwitchedY = true;
-    }
-    else if(currentTranslation.Y > (-1*halfHeight) && currentTranslation.Y < (halfHeight)){
-        hasSwitchedY = false;
-    }
-    
     
     
     //calculate dt
@@ -133,8 +134,6 @@ void Asteroid::OnUpdate(const GameTime& time)
         Transform.Translation.X += 0.0005 * (rand() % 3 + (-1));
         Transform.Translation.Y += 0.0005 * (rand() % 3 + (-1));
         
-        //Bounds.matrix.X += 0.0005 * (rand() % 3 + (-1));
-        //Bounds.matrix.Y += 0.0005 * (rand() % 3 + (-1));
         
         hasBeenPushed = true;
     }

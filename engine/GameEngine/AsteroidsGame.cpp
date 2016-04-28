@@ -73,8 +73,15 @@ Missile& AsteroidsGame::CreateMissile(int i)
 
 void AsteroidsGame::destroyAsteroid(){
     for(int i=0;i<hitAsteroids.size();i++){
-        if( allAsteroids[ hitAsteroids[i] ]->Transform.Scale.X > 0.1 )
-            allAsteroids[ hitAsteroids[i] ]->Transform.Scale = allAsteroids[ hitAsteroids[i] ]->Transform.Scale - Vector3(0.5,0.5,0.5);
+        if( allAsteroids[ hitAsteroids[i].first ]->Transform.Scale.X > 0.1 ){
+            allAsteroids[ hitAsteroids[i].first ]->Transform.Rotation = hitAsteroids[i].second * -1;
+            //allAsteroids[ hitAsteroids[i].first ]->Transform.Scale = allAsteroids[ hitAsteroids[i].first  ]->Transform.Scale - Vector3(0.01,0.01,0.01);
+            allAsteroids[ hitAsteroids[i].first ]->Transform.Translation *= 1.005;
+        }
+        else{
+            allAsteroids[ hitAsteroids[i].first ]->isActive = false;
+            
+        }
     }
 }
 
@@ -92,7 +99,7 @@ void AsteroidsGame::OnPreUpdate(const GameTime & time){
             BoundingSphere missileBounds = allMissiles[j]->getTransformedBounds();
             
             if( temp.Intersects(missileBounds) )
-                std::cout << "MISSILE HITS ASTEROID" << std::endl;
+                hitAsteroids.push_back( make_pair(i, allMissiles[j]->Transform.Rotation) );
         }
     }
     
@@ -124,7 +131,6 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
         
         //set the missile to active
         if( curMissile != nullptr ){
-            
             curMissile->isActive = true;
         }
         
