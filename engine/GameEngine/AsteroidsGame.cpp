@@ -76,8 +76,7 @@ void AsteroidsGame::destroyAsteroid(){
         int first = hitAsteroids[i].first;
         if( !allAsteroids[first]->hasSwitchedX && !allAsteroids[first]->hasSwitchedY  ){
             allAsteroids[first]->Transform.Rotation = hitAsteroids[i].second * -1;
-            //allAsteroids[ hitAsteroids[i].first ]->Transform.Scale = allAsteroids[ hitAsteroids[i].first  ]->Transform.Scale - Vector3(0.01,0.01,0.01);
-            allAsteroids[first]->Transform.Translation *= 1.00001;
+            allAsteroids[first]->Transform.Translation *= 1.0005;
         }
         else{
             allAsteroids[first]->isActive = false;
@@ -99,7 +98,8 @@ void AsteroidsGame::OnPreUpdate(const GameTime & time){
         for(int j=0;j<numMissiles;j++){
             BoundingSphere missileBounds = allMissiles[j]->getTransformedBounds();
             
-            if( temp.Intersects(missileBounds) )
+            //missile hits asteroid
+            if( temp.Intersects(missileBounds) && allMissiles[j]->isActive )
                 hitAsteroids.push_back( make_pair(i, allMissiles[j]->Transform.Rotation) );
         }
     }
