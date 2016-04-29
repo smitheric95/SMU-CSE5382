@@ -73,14 +73,15 @@ Missile& AsteroidsGame::CreateMissile(int i)
 
 void AsteroidsGame::destroyAsteroid(){
     for(int i=0;i<hitAsteroids.size();i++){
-        if( allAsteroids[ hitAsteroids[i].first ]->Transform.Scale.X > 0.1 ){
-            allAsteroids[ hitAsteroids[i].first ]->Transform.Rotation = hitAsteroids[i].second * -1;
+        int first = hitAsteroids[i].first;
+        if( !allAsteroids[first]->hasSwitchedX && !allAsteroids[first]->hasSwitchedY  ){
+            allAsteroids[first]->Transform.Rotation = hitAsteroids[i].second * -1;
             //allAsteroids[ hitAsteroids[i].first ]->Transform.Scale = allAsteroids[ hitAsteroids[i].first  ]->Transform.Scale - Vector3(0.01,0.01,0.01);
-            allAsteroids[ hitAsteroids[i].first ]->Transform.Translation *= 1.005;
+            allAsteroids[first]->Transform.Translation *= 1.00001;
         }
         else{
-            allAsteroids[ hitAsteroids[i].first ]->isActive = false;
-            
+            allAsteroids[first]->isActive = false;
+            allAsteroids[first]->Transform.Scale = 0;
         }
     }
 }
