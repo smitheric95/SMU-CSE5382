@@ -51,8 +51,14 @@ Asteroid& AsteroidsGame::CreateAsteroid()
 {
     auto& asteroid = Create<Asteroid>("asteroid");
     
+    //place asteroids away from ship (-1 to 1)
+    int randomDecider = rand() % 2;
+    
+    if(randomDecider == 1)
+        asteroid.Transform.Translation = Vector3(rand()%10+1, rand()%10+1, 0);
+    else
+        asteroid.Transform.Translation = Vector3((rand()%10+1)*-1, (rand()%10+1)*-1, 0);
 
-    asteroid.Transform.Translation = Vector3(rand()%20 + (-10), rand()%20 + (-10), 0);
     
     int scale = rand() % 2 + 1;
     asteroid.Transform.Scale = Vector3(scale, scale, scale);
@@ -86,64 +92,87 @@ void AsteroidsGame::destroyAsteroid(){
 }
 
 void AsteroidsGame::OnPreUpdate(const GameTime & time){
-    //take care of collisons
-    BoundingSphere shipBounds = curShip->getTransformedBounds();
-
-    for(int i=0;i<numAsteroids;i++){
-        BoundingSphere temp = allAsteroids[i]->getTransformedBounds();
+    if( !gameOver ){
+        //take care of collisons
+        BoundingSphere shipBounds = curShip->getTransformedBounds();
         
-        if( temp.Intersects(shipBounds) )
-            std::cout <<  time.TotalSeconds() <<  "ASTEROID HITS SHIP" << std::endl;
-        
-        for(int j=0;j<numMissiles;j++){
-            BoundingSphere missileBounds = allMissiles[j]->getTransformedBounds();
+        for(int i=0;i<numAsteroids;i++){
+            BoundingSphere temp = allAsteroids[i]->getTransformedBounds();
             
-            //missile hits asteroid
-            if( temp.Intersects(missileBounds) && allMissiles[j]->isActive )
-                hitAsteroids.push_back( make_pair(i, allMissiles[j]->Transform.Rotation) );
+            //asteroid hits ship
+            if( temp.Intersects(shipBounds) && allAsteroids[i]->isActive){
+                gameOver = true;
+                break;
+            }
+            
+            for(int j=0;j<numMissiles;j++){
+                BoundingSphere missileBounds = allMissiles[j]->getTransformedBounds();
+                
+                //missile hits asteroid
+                if( temp.Intersects(missileBounds) && allMissiles[j]->isActive )
+                    hitAsteroids.push_back( make_pair(i, allMissiles[j]->Transform.Rotation) );
+            }
         }
     }
-    
 }
 
 //logic for handling missiles
 void AsteroidsGame::OnUpdate(const GameTime & time){
     Game curGame = Game::Instance();
     GLFWwindow* window = curGame.Window();
-
-    //if the spacebar is pressed once
-    if(!spacePressed && glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_PRESS){
-        //hitAsteroids.push_back(0);//will bemoved to for loop above
+    
+    if( !gameOver ){
+        //if the spacebar is pressed once
+        if(!spacePressed && glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_PRESS){
+            
+            spacePressed = true;
+            Missile* curMissile = nullptr;
+            
+            //find the first inactive missile
+            for(int i=0;i<allMissiles.size();i++){
+                if( !allMissiles[i]->isActive ){
+                    curMissile = allMissiles[i];
+                    curMissile->Transform.Translation = curShip->Transform.Translation;
+                    curMissile->Transform.Rotation = curShip->Transform.Rotation;
+                    curMissile->hasBeenShot = false;
+                    curMissile->backToShip = false;
+                    break;
+                }
+            }
+            
+            //set the missile to active
+            if( curMissile != nullptr ){
+                curMissile->isActive = true;
+            }
+            
+        }
+        else if(glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_RELEASE)
+            spacePressed = false;
         
-        spacePressed = true;
+        destroyAsteroid();
+        
+        if( hitAsteroids.size() == allAsteroids.size() ){
+            //start new level
+            std::cout << "You win!" << std::endl;
+        }
+    }
+    else{
+        //reset ship to center after certain time
+        curShip->Transform.Translation = Vector3(0,0,0);
+        curShip->previousTranslation = Vector3(0,0,0);
+        
         Missile* curMissile = nullptr;
         
-        //find the first inactive missile
         for(int i=0;i<allMissiles.size();i++){
-            if( !allMissiles[i]->isActive ){
-                curMissile = allMissiles[i];
-                curMissile->Transform.Translation = curShip->Transform.Translation;
-                curMissile->Transform.Rotation = curShip->Transform.Rotation;
-                curMissile->hasBeenShot = false;
-                curMissile->backToShip = false;
-                break;
-            }
+            curMissile = allMissiles[i];
+            curMissile->Transform.Translation = Vector3(0,0,0);
+            curMissile->previousTranslation = Vector3(0,0,0);
+            curMissile->Transform.Rotation = curShip->Transform.Rotation;
+            curMissile->isActive = false;
+            curMissile->hasBeenShot = false;
         }
         
-        //set the missile to active
-        if( curMissile != nullptr ){
-            curMissile->isActive = true;
-        }
-        
+        gameOver = false;
     }
-    else if(glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_RELEASE)
-        spacePressed = false;
-    
-    destroyAsteroid();
-    
-    if( hitAsteroids.size() == allAsteroids.size() ){
-        //start new level 
-    }
-    
 }
 

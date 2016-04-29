@@ -37,11 +37,13 @@ public:
     //index, missileNumber, rotation of missile
     vector< pair<int, Vector3> >hitAsteroids;
     
-    int numAsteroids = 10;
+    int numAsteroids = 20;
     int numMissiles = 20;
     
     Ship* curShip;
     bool spacePressed;
+    
+    bool gameOver = false;
     
     void OnUpdate(const GameTime & time) override;
     void OnPreUpdate(const GameTime & time) override;
