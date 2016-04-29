@@ -37,7 +37,7 @@ public:
     //index, missileNumber, rotation of missile
     vector< pair<int, Vector3> >hitAsteroids;
     
-    int numAsteroids = 20;
+    int numAsteroids = 2;
     int numMissiles = 20;
     
     Ship* curShip;

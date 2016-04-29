@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -55,9 +56,9 @@ Asteroid& AsteroidsGame::CreateAsteroid()
     int randomDecider = rand() % 2;
     
     if(randomDecider == 1)
-        asteroid.Transform.Translation = Vector3(rand()%10+1, rand()%10+1, 0);
+        asteroid.Transform.Translation = Vector3(rand()%5+1, rand()%5+1, 0);
     else
-        asteroid.Transform.Translation = Vector3((rand()%10+1)*-1, (rand()%10+1)*-1, 0);
+        asteroid.Transform.Translation = Vector3((rand()%5+1)*-1, (rand()%5+1)*-1, 0);
 
     
     int scale = rand() % 2 + 1;
@@ -79,7 +80,9 @@ Missile& AsteroidsGame::CreateMissile(int i)
 
 void AsteroidsGame::destroyAsteroid(){
     for(int i=0;i<hitAsteroids.size();i++){
+        
         int first = hitAsteroids[i].first;
+        
         if( !allAsteroids[first]->hasSwitchedX && !allAsteroids[first]->hasSwitchedY  ){
             allAsteroids[first]->Transform.Rotation = hitAsteroids[i].second * -1;
             allAsteroids[first]->Transform.Translation *= 1.0005;
@@ -109,8 +112,13 @@ void AsteroidsGame::OnPreUpdate(const GameTime & time){
                 BoundingSphere missileBounds = allMissiles[j]->getTransformedBounds();
                 
                 //missile hits asteroid
-                if( temp.Intersects(missileBounds) && allMissiles[j]->isActive )
-                    hitAsteroids.push_back( make_pair(i, allMissiles[j]->Transform.Rotation) );
+                if( temp.Intersects(missileBounds) && allMissiles[j]->isActive ){
+                    pair<int, Vector3> ast = make_pair(i, allMissiles[j]->Transform.Rotation);
+                    
+                    //add asteroid to hitAteroids
+                    if(std::find(hitAsteroids.begin(), hitAsteroids.end(), ast) == hitAsteroids.end())
+                        hitAsteroids.push_back(ast);
+                }
             }
         }
     }
@@ -151,7 +159,7 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
         
         destroyAsteroid();
         
-        if( hitAsteroids.size() == allAsteroids.size() ){
+        if( hitAsteroids.size() == numAsteroids ){
             //start new level
             std::cout << "You win!" << std::endl;
         }

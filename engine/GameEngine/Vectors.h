@@ -95,6 +95,11 @@ struct Vector3 : public Vector2
         return *this;
     }
     
+    inline bool operator==(const Vector3& rval) const
+    {
+        return X == rval.X && Y == rval.Y && Z == rval.Z;
+    }
+    
     
     /*
      * operators + and -
