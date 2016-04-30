@@ -80,18 +80,33 @@ void Asteroid::OnUpdate(const GameTime& time)
     float halfHeight = camMatrix.m32 / aspectRatio.m11;
     
     currentTranslation = Transform.Translation;
-    
 
     if( (currentTranslation.X < (-1*halfWidth) || currentTranslation.X > halfWidth) && !hasSwitchedX ){
         
-        if( previousTranslation.X < 0 )
-            previousTranslation.X -= 2*(abs(currentTranslation.X) - abs(previousTranslation.X));
-        else if( previousTranslation.X > 0 )
-            previousTranslation.X += 2*(abs(currentTranslation.X) - abs(previousTranslation.X));
-        
-        previousTranslation.X *= -1;
-        currentTranslation.X *= -1;
-        hasSwitchedX = true;
+        //if it's floated there, switch asteroid to other side of the screen
+        if(!shotOut){
+            if( previousTranslation.X < 0 )
+                previousTranslation.X -= 2*(abs(currentTranslation.X) - abs(previousTranslation.X));
+            else if( previousTranslation.X > 0 )
+                previousTranslation.X += 2*(abs(currentTranslation.X) - abs(previousTranslation.X));
+            
+            previousTranslation.X *= -1;
+            currentTranslation.X *= -1;
+            hasSwitchedX = true;
+        }
+        else{
+            //the asteroid has been shot out, push it towards the center
+            isActive = true;
+            int scale = rand() % 2 + 1;
+            Transform.Scale = Vector3(scale, scale, scale);
+            
+            //push them towards center
+            float tempTransform = previousTranslation.X;
+            previousTranslation.X = currentTranslation.X;
+            currentTranslation.X = tempTransform;
+            
+            shotOut = false;
+        }
     }
     else if(currentTranslation.X > (-1*halfWidth) && currentTranslation.X < (halfWidth)){
         hasSwitchedX = false;
@@ -99,14 +114,29 @@ void Asteroid::OnUpdate(const GameTime& time)
     
     if( (currentTranslation.Y < (-1*halfHeight) || currentTranslation.Y > halfHeight) && !hasSwitchedY ){
         
-        if( previousTranslation.Y < 0 )
-            previousTranslation.Y -= 2*(abs(currentTranslation.Y) - abs(previousTranslation.Y));
-        else if( previousTranslation.Y > 0 )
-            previousTranslation.Y += 2*(abs(currentTranslation.Y) - abs(previousTranslation.Y));
-        
-        previousTranslation.Y *= -1;
-        currentTranslation.Y *= -1;
-        hasSwitchedY = true;
+        if(!shotOut){
+            if( previousTranslation.Y < 0 )
+                previousTranslation.Y -= 2*(abs(currentTranslation.Y) - abs(previousTranslation.Y));
+            else if( previousTranslation.Y > 0 )
+                previousTranslation.Y += 2*(abs(currentTranslation.Y) - abs(previousTranslation.Y));
+            
+            previousTranslation.Y *= -1;
+            currentTranslation.Y *= -1;
+            hasSwitchedY = true;
+        }
+        else{
+            //the asteroid has been shot out, push it towards the center
+            isActive = true;
+            int scale = rand() % 2 + 1;
+            Transform.Scale = Vector3(scale, scale, scale);
+            
+            //push them towards center
+            float tempTransform = previousTranslation.Y;
+            previousTranslation.Y = currentTranslation.Y;
+            currentTranslation.Y = tempTransform;
+            
+            shotOut = false;
+        }
     }
     else if(currentTranslation.Y > (-1*halfHeight) && currentTranslation.Y < (halfHeight)){
         hasSwitchedY = false;

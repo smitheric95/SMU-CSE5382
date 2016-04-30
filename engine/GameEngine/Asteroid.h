@@ -33,6 +33,7 @@ public:
     bool hasSwitchedY = false;
     bool hasBeenPushed = false;
     bool isActive = true;
+    bool shotOut = false;
     
     float previousFrameTime = 0.001f;
     float getPreviousFrameTime();

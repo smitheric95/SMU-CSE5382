@@ -169,16 +169,7 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
             
             //make hit asteroids active/scale them
             for(int i=0;i<hitAsteroids.size();i++){
-                Asteroid* curAsteroid = allAsteroids[ hitAsteroids[i].first ];
-                
-                curAsteroid->isActive = true;
-                int scale = rand() % 2 + 1;
-                curAsteroid->Transform.Scale = Vector3(scale, scale, scale);
-                
-                //push them towards center
-                Vector3 tempTransform = curAsteroid->previousTranslation;
-                curAsteroid->previousTranslation = curAsteroid->currentTranslation;
-                curAsteroid->currentTranslation = tempTransform;
+                allAsteroids[ hitAsteroids[i].first ]->shotOut = true;                
             }
             
             //clear hitAsteroids
