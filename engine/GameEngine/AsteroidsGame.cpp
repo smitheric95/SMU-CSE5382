@@ -159,9 +159,30 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
         
         destroyAsteroid();
         
+        //start new level
         if( hitAsteroids.size() == numAsteroids ){
-            //start new level
             std::cout << "You win!" << std::endl;
+            
+            //increment numAsteroids
+            //initialize new asteroids
+            //(if unable to initialize, start with some active/some not)
+            
+            //make hit asteroids active/scale them
+            for(int i=0;i<hitAsteroids.size();i++){
+                Asteroid* curAsteroid = allAsteroids[ hitAsteroids[i].first ];
+                
+                curAsteroid->isActive = true;
+                int scale = rand() % 2 + 1;
+                curAsteroid->Transform.Scale = Vector3(scale, scale, scale);
+                
+                //push them towards center
+                Vector3 tempTransform = curAsteroid->previousTranslation;
+                curAsteroid->previousTranslation = curAsteroid->currentTranslation;
+                curAsteroid->currentTranslation = tempTransform;
+            }
+            
+            //clear hitAsteroids
+            hitAsteroids.clear();
         }
     }
     else{
