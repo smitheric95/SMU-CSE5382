@@ -22,16 +22,18 @@ using namespace std;
 
 bool AsteroidsGame::OnCreateScene()
 {
-    curShip = &CreateShip();
+    //ship that flies around
+    curShip = &CreateShip(-1);
     
-    for(int i=0;i<numAsteroids;i++){
+    //ships for lives
+    for(int i=0;i<3;i++)
+        liveShips.push_back( &CreateShip(i) );
+    
+    for(int i=0;i<numAsteroids;i++)
         allAsteroids.push_back( &CreateAsteroid(i) );
-        
-    }
     
-    for(int i=0;i<numMissiles;i++){
+    for(int i=0;i<numMissiles;i++)
         allMissiles.push_back( &CreateMissile(i) );
-    }
     
     auto& cam = Game::Camera;
     
@@ -41,21 +43,18 @@ bool AsteroidsGame::OnCreateScene()
     
 }
 
-Ship& AsteroidsGame::CreateShip()
+Ship& AsteroidsGame::CreateShip(int i)
 {
     auto& ship = Create<Ship>("ship");
     
+    ship.lifeNumber = i;
+
     return ship;
 }
 
 Asteroid& AsteroidsGame::CreateAsteroid(int i)
 {
     auto& asteroid = Create<Asteroid>("asteroid");
-    
-    Game curGame = Game::Instance();
-    GLFWwindow* window = curGame.Window();
-    int width, height;
-    glfwGetWindowSize(window, &width, &height);
     
     //place asteroids away from ship (-1 to 1)
     int randomDecider = rand() % 2;
@@ -65,7 +64,6 @@ Asteroid& AsteroidsGame::CreateAsteroid(int i)
     else
         asteroid.Transform.Translation = Vector3((rand()%5+1)*-1, (rand()%5+1)*-1, 0);
 
-    
     int scale = rand() % 2 + 1;
     asteroid.Transform.Scale = Vector3(scale, scale, scale);
     
@@ -110,7 +108,7 @@ void AsteroidsGame::OnPreUpdate(const GameTime & time){
             BoundingSphere temp = allAsteroids[i]->getTransformedBounds();
             
             //asteroid hits ship
-            if( temp.Intersects(shipBounds) && allAsteroids[i]->isActive){
+            if( temp.Intersects(shipBounds) && allAsteroids[i]->isActive ){
                 gameOver = true;
                 break;
             }
@@ -192,7 +190,7 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
             
             //clear asteroids
             //hitAsteroids.clear();
-            //allAsteroids.clear();
+            allAsteroids.clear();
             
             //create new asteroids
             //numAsteroids += 3;

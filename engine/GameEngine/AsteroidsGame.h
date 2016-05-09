@@ -27,13 +27,14 @@ public:
     /// location of shaders in the file system.
 	std::string ShaderFolder;
     
-    Ship& CreateShip();
+    Ship& CreateShip(int i);
     Asteroid& CreateAsteroid(int i);
     Missile& CreateMissile(int i);
     void destroyAsteroid();
     
     vector<Missile*> allMissiles;
     vector<Asteroid*> allAsteroids;
+    vector<Ship*> liveShips;
     
     //index,
     //asteroidNumber (index in allAsteroids),

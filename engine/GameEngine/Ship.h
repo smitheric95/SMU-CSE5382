@@ -34,6 +34,8 @@ public:
     bool hasSwitchedX = false;
     bool hasSwitchedY = false;
     
+    int lifeNumber;
+    
     float previousFrameTime = 0.001f;
     float getPreviousFrameTime();
     void setPreviousFrameTime( float previousFrameTime );

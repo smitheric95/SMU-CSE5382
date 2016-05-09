@@ -21,7 +21,6 @@ bool Ship::OnInitialize()
 {
     auto& mesh = Create<Mesh>("ship-mesh");
     
-    
     /// narrow triangle pointed along the positive Y axis
     vector<float> vertices =
     {
@@ -47,6 +46,28 @@ bool Ship::OnInitialize()
     mesh.Material = &material;
     material.FillType = PolygonMode::Line;
     
+    Game curGame = Game::Instance();
+    GLFWwindow* window = curGame.Window();
+    
+    int width, height;
+    glfwGetWindowSize(window, &width, &height);
+
+    std::cout << "width" << width << std::endl;
+    if( lifeNumber > -1 ){
+        Game curGame = Game::Instance();
+        GLFWwindow* window = curGame.Window();
+        
+        auto& cam = Game::Camera;
+        Matrix camMatrix = cam.Transform.GetMatrix();
+        Matrix aspectRatio = cam.GetProjectionMatrix();
+        
+        //calculate width and height of the ship
+        float halfWidth = camMatrix.m32 / aspectRatio.m00;
+        float halfHeight = camMatrix.m32 / aspectRatio.m11;
+        
+        Transform.Translation = Vector3(halfWidth-1-(0.8*lifeNumber), halfHeight-0.8, 0);
+        
+    }
     
     return material.Build("Shaders/primitive");
 }
@@ -62,7 +83,7 @@ void Ship::OnUpdate(const GameTime& time)
     Matrix camMatrix = cam.Transform.GetMatrix();
     Matrix aspectRatio = cam.GetProjectionMatrix();
     
-    //calculate width and height of
+    //calculate width and height of the ship
     float halfWidth = camMatrix.m32 / aspectRatio.m00;
     float halfHeight = camMatrix.m32 / aspectRatio.m11;
 
@@ -117,7 +138,7 @@ void Ship::OnUpdate(const GameTime& time)
     
     Transform.Translation += velocity * (1 - drag);
     
-    if(glfwGetKey(window,GLFW_KEY_UP) == GLFW_PRESS){
+    if(glfwGetKey(window,GLFW_KEY_UP) == GLFW_PRESS && lifeNumber == -1){
         auto newPos = Transform.GetMatrix();
         
         Transform.Translation.X += 0.005 * newPos.m10;
@@ -125,11 +146,11 @@ void Ship::OnUpdate(const GameTime& time)
         Transform.Translation.Z += 0.005 * newPos.m12;
     }
     
-    if(glfwGetKey(window,GLFW_KEY_RIGHT) == GLFW_PRESS){
+    if(glfwGetKey(window,GLFW_KEY_RIGHT) == GLFW_PRESS && lifeNumber == -1){
         Transform.Rotation.Z += 0.1;
     }
     
-    if(glfwGetKey(window,GLFW_KEY_LEFT) == GLFW_PRESS){
+    if(glfwGetKey(window,GLFW_KEY_LEFT) == GLFW_PRESS && lifeNumber == -1){
         Transform.Rotation.Z -= 0.1;
     }
     
