@@ -35,6 +35,8 @@ public:
     bool isActive = true;
     bool shotOut = false;
     
+    float speed = 0.0005;
+    
     int ID;
     
     float previousFrameTime = 0.001f;

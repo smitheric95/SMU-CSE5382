@@ -63,9 +63,15 @@ Asteroid& AsteroidsGame::CreateAsteroid(int i)
         asteroid.Transform.Translation = Vector3(rand()%5+1, rand()%5+1, 0);
     else
         asteroid.Transform.Translation = Vector3((rand()%5+1)*-1, (rand()%5+1)*-1, 0);
-
-    int scale = rand() % 2 + 1;
-    asteroid.Transform.Scale = Vector3(scale, scale, scale);
+    
+    if(i < levelNumAsteroids ){
+        int scale = rand() % 2 + 1;
+        asteroid.Transform.Scale = Vector3(scale, scale, scale);
+    }
+    else{
+        asteroid.isActive = false;
+        asteroid.Transform.Scale = 0;
+    }
     
     asteroid.ID = i;
     
@@ -127,7 +133,7 @@ void AsteroidsGame::OnPreUpdate(const GameTime & time){
                 BoundingSphere missileBounds = allMissiles[j]->getTransformedBounds();
                 
                 //missile hits asteroid
-                if( temp.Intersects(missileBounds) && allMissiles[j]->isActive ){
+                if( temp.Intersects(missileBounds) && allMissiles[j]->isActive && allAsteroids[i]->isActive ){
                     pair<int, Vector3> ast = make_pair(i, allMissiles[j]->Transform.Rotation);
                     
                     //add asteroid to hitAteroids if its not already there
@@ -187,7 +193,7 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
         destroyAsteroid();
         
         //start new level
-        if( hitAsteroids.size() == numAsteroids ){
+        if( hitAsteroids.size() == levelNumAsteroids ){
             std::cout << "You win!" << std::endl;
             
             //make hit asteroids inactive
@@ -195,18 +201,18 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
                 allAsteroids[ hitAsteroids[i].first ]->shotOut = true;
             }
             
-            gameOver = true;
+            //gameOver = true;
+            levelNumAsteroids += levelNumAsteroids;
             
-            //clear asteroids
-            //hitAsteroids.clear();
-            allAsteroids.clear();
-            
-            //create new asteroids
-            //numAsteroids += 3;
-            //for(int i=0;i<numAsteroids;i++)
-              //  allAsteroids.push_back( &CreateAsteroid(i) );
-  
+            for(int i=(levelNumAsteroids/2);i<levelNumAsteroids;i++){
+                //place asteroids away from ship (-1 to 1)
+                int scale = rand() % 2 + 1;
+                allAsteroids[i]->Transform.Scale = Vector3(scale, scale, scale);
+                allAsteroids[i]->speed = 0.05;
+                allAsteroids[i]->isActive = true;
+            }
         }
+        
     }
     else{
         //reset ship to center after certain time

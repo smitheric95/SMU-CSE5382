@@ -41,11 +41,13 @@ public:
     //rotation of missile
     vector< pair<int, Vector3> >hitAsteroids;
     
-    int numAsteroids = 3;
+    int numAsteroids = 9; //total asteroid count
+    int levelNumAsteroids = 3; //amount incremented per level
+    
     int numMissiles = 20;
     int numLives = 3;
     
-    Ship* curShip;
+    Ship* curShip = nullptr;
     bool spacePressed;
     
     bool gameOver = false;

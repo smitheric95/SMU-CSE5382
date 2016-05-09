@@ -140,9 +140,11 @@ void Asteroid::OnUpdate(const GameTime& time)
     if(isActive)
         Transform.Translation += velocity;
     
-    if( !hasBeenPushed ){
-        Transform.Translation.X += 0.0005 * (rand() % 3 + (-1));
-        Transform.Translation.Y += 0.0005 * (rand() % 3 + (-1));
+    if( isActive && !hasBeenPushed ){
+        
+        std::cout << "push the asteroid:" << ID << std::endl;
+        Transform.Translation.X += speed * (rand() % 3 + (-1));
+        Transform.Translation.Y += speed * (rand() % 3 + (-1));
         
         hasBeenPushed = true;
     }
