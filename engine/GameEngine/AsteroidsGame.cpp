@@ -155,7 +155,7 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
     Game curGame = Game::Instance();
     GLFWwindow* window = curGame.Window();
     
-    if( !lifeLost ){
+    if( !lifeLost && !gameOver ){
         //if the spacebar is pressed once
         if(!spacePressed && glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_PRESS){
             
@@ -229,8 +229,11 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
         
         lifeLost = false;
         
-        if(liveShips.size() < 1 )
+        if(liveShips.size() < 1 ){
             curShip->canMove = false;
+            //curShip->canFire = false;
+            gameOver = true;
+        }
     }
 }
 
