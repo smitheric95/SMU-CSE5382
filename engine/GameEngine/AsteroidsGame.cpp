@@ -25,7 +25,7 @@ bool AsteroidsGame::OnCreateScene()
     curShip = &CreateShip();
     
     for(int i=0;i<numAsteroids;i++){
-        allAsteroids.push_back( &CreateAsteroid() );
+        allAsteroids.push_back( &CreateAsteroid(i) );
         
     }
     
@@ -48,9 +48,14 @@ Ship& AsteroidsGame::CreateShip()
     return ship;
 }
 
-Asteroid& AsteroidsGame::CreateAsteroid()
+Asteroid& AsteroidsGame::CreateAsteroid(int i)
 {
     auto& asteroid = Create<Asteroid>("asteroid");
+    
+    Game curGame = Game::Instance();
+    GLFWwindow* window = curGame.Window();
+    int width, height;
+    glfwGetWindowSize(window, &width, &height);
     
     //place asteroids away from ship (-1 to 1)
     int randomDecider = rand() % 2;
@@ -63,6 +68,8 @@ Asteroid& AsteroidsGame::CreateAsteroid()
     
     int scale = rand() % 2 + 1;
     asteroid.Transform.Scale = Vector3(scale, scale, scale);
+    
+    asteroid.ID = i;
     
     return asteroid;
 }
@@ -115,9 +122,20 @@ void AsteroidsGame::OnPreUpdate(const GameTime & time){
                 if( temp.Intersects(missileBounds) && allMissiles[j]->isActive ){
                     pair<int, Vector3> ast = make_pair(i, allMissiles[j]->Transform.Rotation);
                     
-                    //add asteroid to hitAteroids
-                    if(std::find(hitAsteroids.begin(), hitAsteroids.end(), ast) == hitAsteroids.end())
+                    //add asteroid to hitAteroids if its not already there
+                    
+                    //O(n^3) woo hoo!
+                    
+                    bool addAsteroid = true;
+                    for(int k=0;k<hitAsteroids.size();k++){
+                        if( i == hitAsteroids[k].first )
+                            addAsteroid = false;
+                    }
+                    
+                    if(addAsteroid)
                         hitAsteroids.push_back(ast);
+                    
+                    std::cout << "Number of hit asteroids: " << hitAsteroids.size() << std::endl;
                 }
             }
         }
@@ -153,6 +171,8 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
                 curMissile->isActive = true;
             }
             
+            
+            
         }
         else if(glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_RELEASE)
             spacePressed = false;
@@ -163,17 +183,22 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
         if( hitAsteroids.size() == numAsteroids ){
             std::cout << "You win!" << std::endl;
             
-            //increment numAsteroids
-            //initialize new asteroids
-            //(if unable to initialize, start with some active/some not)
-            
-            //make hit asteroids active/scale them
+            //make hit asteroids inactive
             for(int i=0;i<hitAsteroids.size();i++){
-                allAsteroids[ hitAsteroids[i].first ]->shotOut = true;                
+                allAsteroids[ hitAsteroids[i].first ]->shotOut = true;
             }
             
-            //clear hitAsteroids
-            hitAsteroids.clear();
+            gameOver = true;
+            
+            //clear asteroids
+            //hitAsteroids.clear();
+            //allAsteroids.clear();
+            
+            //create new asteroids
+            //numAsteroids += 3;
+            //for(int i=0;i<numAsteroids;i++)
+              //  allAsteroids.push_back( &CreateAsteroid(i) );
+  
         }
     }
     else{

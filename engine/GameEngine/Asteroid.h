@@ -35,6 +35,8 @@ public:
     bool isActive = true;
     bool shotOut = false;
     
+    int ID;
+    
     float previousFrameTime = 0.001f;
     float getPreviousFrameTime();
     void setPreviousFrameTime( float previousFrameTime );

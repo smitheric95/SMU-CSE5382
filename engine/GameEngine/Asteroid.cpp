@@ -93,20 +93,8 @@ void Asteroid::OnUpdate(const GameTime& time)
             previousTranslation.X *= -1;
             currentTranslation.X *= -1;
             hasSwitchedX = true;
-        }
-        else{
-            //the asteroid has been shot out, push it towards the center
-            isActive = true;
-            int scale = rand() % 2 + 1;
-            Transform.Scale = Vector3(scale, scale, scale);
-            
-            //push them towards center
-            float tempTransform = previousTranslation.X;
-            previousTranslation.X = currentTranslation.X;
-            currentTranslation.X = tempTransform;
-            
-            shotOut = false;
-        }
+        }  shotOut = false;
+
     }
     else if(currentTranslation.X > (-1*halfWidth) && currentTranslation.X < (halfWidth)){
         hasSwitchedX = false;
@@ -124,25 +112,17 @@ void Asteroid::OnUpdate(const GameTime& time)
             currentTranslation.Y *= -1;
             hasSwitchedY = true;
         }
-        else{
-            //the asteroid has been shot out, push it towards the center
-            isActive = true;
-            int scale = rand() % 2 + 1;
-            Transform.Scale = Vector3(scale, scale, scale);
-            
-            //push them towards center
-            float tempTransform = previousTranslation.Y;
-            previousTranslation.Y = currentTranslation.Y;
-            currentTranslation.Y = tempTransform;
-            
-            shotOut = false;
-        }
     }
     else if(currentTranslation.Y > (-1*halfHeight) && currentTranslation.Y < (halfHeight)){
         hasSwitchedY = false;
     }
-
-    
+/*
+    std::cout << "-------------------" << std::endl;
+    std::cout << "ID: " << this->ID << std::endl;
+    std::cout << "X: " << currentTranslation.X << std::endl;
+    std::cout << "Y: " << currentTranslation.Y << std::endl;
+    std::cout << "-------------------" << std::endl;
+*/
     //calculate dt
     float timeScale = time.ElapsedSeconds() / getPreviousFrameTime();
     if( time.ElapsedSeconds() / getPreviousFrameTime() > 0 )

@@ -28,16 +28,19 @@ public:
 	std::string ShaderFolder;
     
     Ship& CreateShip();
-    Asteroid& CreateAsteroid();
+    Asteroid& CreateAsteroid(int i);
     Missile& CreateMissile(int i);
     void destroyAsteroid();
     
     vector<Missile*> allMissiles;
     vector<Asteroid*> allAsteroids;
-    //index, missileNumber, rotation of missile
+    
+    //index,
+    //asteroidNumber (index in allAsteroids),
+    //rotation of missile
     vector< pair<int, Vector3> >hitAsteroids;
     
-    int numAsteroids = 1;
+    int numAsteroids = 3;
     int numMissiles = 20;
     
     Ship* curShip;
