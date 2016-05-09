@@ -144,7 +144,6 @@ void Asteroid::OnUpdate(const GameTime& time)
         Transform.Translation.X += 0.0005 * (rand() % 3 + (-1));
         Transform.Translation.Y += 0.0005 * (rand() % 3 + (-1));
         
-        std::cout << "push " << std::endl;
         hasBeenPushed = true;
     }
     

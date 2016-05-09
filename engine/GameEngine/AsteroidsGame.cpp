@@ -26,7 +26,7 @@ bool AsteroidsGame::OnCreateScene()
     curShip = &CreateShip(-1);
     
     //ships for lives
-    for(int i=0;i<3;i++)
+    for(int i=0;i<numLives;i++)
         liveShips.push_back( &CreateShip(i) );
     
     for(int i=0;i<numAsteroids;i++)
@@ -109,7 +109,17 @@ void AsteroidsGame::OnPreUpdate(const GameTime & time){
             
             //asteroid hits ship
             if( temp.Intersects(shipBounds) && allAsteroids[i]->isActive ){
-                gameOver = true;
+                
+                numLives--;
+                
+                //kill life ship
+                Ship* curLiveShip = liveShips.back();
+                liveShips.pop_back();
+                curLiveShip->hasBeenPushed = true;
+                
+                
+                lifeLost = true;
+                
                 break;
             }
             
@@ -145,7 +155,7 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
     Game curGame = Game::Instance();
     GLFWwindow* window = curGame.Window();
     
-    if( !gameOver ){
+    if( !lifeLost ){
         //if the spacebar is pressed once
         if(!spacePressed && glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_PRESS){
             
@@ -168,7 +178,6 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
             if( curMissile != nullptr ){
                 curMissile->isActive = true;
             }
-            
             
             
         }
@@ -213,9 +222,15 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
             curMissile->Transform.Rotation = curShip->Transform.Rotation;
             curMissile->isActive = false;
             curMissile->hasBeenShot = false;
+            
+            if(liveShips.size() < 1 )
+                curMissile->canMove = false;
         }
         
-        gameOver = false;
+        lifeLost = false;
+        
+        if(liveShips.size() < 1 )
+            curShip->canMove = false;
     }
 }
 

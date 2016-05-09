@@ -138,7 +138,7 @@ void Missile::OnUpdate(const GameTime& time)
         Transform.Translation += velocity;
     }
     
-    if(!hasBeenShot && glfwGetKey(window,GLFW_KEY_UP) == GLFW_PRESS){
+    if(!hasBeenShot && glfwGetKey(window,GLFW_KEY_UP) == GLFW_PRESS && canMove){
         auto newPos = Transform.GetMatrix();
         
         Transform.Translation.X += 0.005 * newPos.m10;

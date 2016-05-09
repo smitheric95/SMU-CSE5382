@@ -138,7 +138,13 @@ void Ship::OnUpdate(const GameTime& time)
     
     Transform.Translation += velocity * (1 - drag);
     
-    if(glfwGetKey(window,GLFW_KEY_UP) == GLFW_PRESS && lifeNumber == -1){
+    //kill life ship
+    if(hasBeenPushed){
+        Transform.Translation.Y += 0.1;
+        hasSwitchedY = true;
+    }
+        
+    if(glfwGetKey(window,GLFW_KEY_UP) == GLFW_PRESS && lifeNumber == -1 && canMove){
         auto newPos = Transform.GetMatrix();
         
         Transform.Translation.X += 0.005 * newPos.m10;

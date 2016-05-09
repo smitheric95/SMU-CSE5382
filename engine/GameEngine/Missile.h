@@ -43,6 +43,7 @@ public:
     bool hasBeenShot;
     bool spacePressed;
     bool backToShip;
+    bool canMove = true;
     
 private:
     Mesh* m_mesh;

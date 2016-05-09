@@ -43,11 +43,13 @@ public:
     
     int numAsteroids = 3;
     int numMissiles = 20;
+    int numLives = 3;
     
     Ship* curShip;
     bool spacePressed;
     
     bool gameOver = false;
+    bool lifeLost = false;
     
     void OnUpdate(const GameTime & time) override;
     void OnPreUpdate(const GameTime & time) override;

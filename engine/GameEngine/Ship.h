@@ -33,8 +33,9 @@ public:
     
     bool hasSwitchedX = false;
     bool hasSwitchedY = false;
-    
+    bool canMove = true;
     int lifeNumber;
+    bool hasBeenPushed = false;
     
     float previousFrameTime = 0.001f;
     float getPreviousFrameTime();
