@@ -67,7 +67,6 @@ bool Asteroid::OnInitialize()
 void Asteroid::OnUpdate(const GameTime& time)
 {
     Game curGame = Game::Instance();
-    GLFWwindow* window = curGame.Window();
     
     currentTranslation = Transform.Translation;
     
@@ -116,13 +115,7 @@ void Asteroid::OnUpdate(const GameTime& time)
     else if(currentTranslation.Y > (-1*halfHeight) && currentTranslation.Y < (halfHeight)){
         hasSwitchedY = false;
     }
-/*
-    std::cout << "-------------------" << std::endl;
-    std::cout << "ID: " << this->ID << std::endl;
-    std::cout << "X: " << currentTranslation.X << std::endl;
-    std::cout << "Y: " << currentTranslation.Y << std::endl;
-    std::cout << "-------------------" << std::endl;
-*/
+    
     //calculate dt
     float timeScale = time.ElapsedSeconds() / getPreviousFrameTime();
     if( time.ElapsedSeconds() / getPreviousFrameTime() > 0 )
@@ -130,7 +123,7 @@ void Asteroid::OnUpdate(const GameTime& time)
     
     //find velocity
     Vector3 velocity = (currentTranslation - previousTranslation) * timeScale;
-    
+
     
     //prev = cur at beginning of each frame
     previousTranslation = currentTranslation;
@@ -141,8 +134,6 @@ void Asteroid::OnUpdate(const GameTime& time)
         Transform.Translation += velocity;
     
     if( isActive && !hasBeenPushed ){
-        
-        std::cout << "push the asteroid:" << ID << std::endl;
         Transform.Translation.X += speed * (rand() % 3 + (-1));
         Transform.Translation.Y += speed * (rand() % 3 + (-1));
         

@@ -148,8 +148,6 @@ void AsteroidsGame::OnPreUpdate(const GameTime & time){
                     
                     if(addAsteroid)
                         hitAsteroids.push_back(ast);
-                    
-                    std::cout << "Number of hit asteroids: " << hitAsteroids.size() << std::endl;
                 }
             }
         }
@@ -192,25 +190,27 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
         
         destroyAsteroid();
         
-        //start new level
-        if( hitAsteroids.size() == levelNumAsteroids ){
+        if( hitAsteroids.size() == numAsteroids ){
             std::cout << "You win!" << std::endl;
-            
+            gameOver = true;
+        }
+        //start new level
+        else if( hitAsteroids.size() == levelNumAsteroids ){
             //make hit asteroids inactive
             for(int i=0;i<hitAsteroids.size();i++){
                 allAsteroids[ hitAsteroids[i].first ]->shotOut = true;
             }
             
-            //gameOver = true;
-            levelNumAsteroids += levelNumAsteroids;
-            
-            for(int i=(levelNumAsteroids/2);i<levelNumAsteroids;i++){
+            for(int i=levelNumAsteroids;i<levelNumAsteroids+levelIncrement;i++){
                 //place asteroids away from ship (-1 to 1)
                 int scale = rand() % 2 + 1;
                 allAsteroids[i]->Transform.Scale = Vector3(scale, scale, scale);
                 allAsteroids[i]->speed = 0.05;
                 allAsteroids[i]->isActive = true;
             }
+            
+            levelNumAsteroids += levelIncrement;
+            
         }
         
     }
@@ -237,7 +237,6 @@ void AsteroidsGame::OnUpdate(const GameTime & time){
         
         if(liveShips.size() < 1 ){
             curShip->canMove = false;
-            //curShip->canFire = false;
             gameOver = true;
         }
     }

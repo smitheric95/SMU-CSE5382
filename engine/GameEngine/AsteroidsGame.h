@@ -41,8 +41,9 @@ public:
     //rotation of missile
     vector< pair<int, Vector3> >hitAsteroids;
     
-    int numAsteroids = 9; //total asteroid count
-    int levelNumAsteroids = 3; //amount incremented per level
+    int numAsteroids = 20; //total asteroid count
+    int levelNumAsteroids = 5; //amount incremented per level
+    int levelIncrement = levelNumAsteroids;
     
     int numMissiles = 20;
     int numLives = 3;

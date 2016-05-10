@@ -52,10 +52,8 @@ bool Ship::OnInitialize()
     int width, height;
     glfwGetWindowSize(window, &width, &height);
 
-    std::cout << "width" << width << std::endl;
     if( lifeNumber > -1 ){
         Game curGame = Game::Instance();
-        GLFWwindow* window = curGame.Window();
         
         auto& cam = Game::Camera;
         Matrix camMatrix = cam.Transform.GetMatrix();
